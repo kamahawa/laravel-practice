@@ -21,7 +21,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/HuyCuong/function.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [

@@ -14,3 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+
+Route::group(['prefix' => 'admin'], function (){
+    Route::group(['prefix' => 'cate'], function (){
+        Route::get('list', ['as' => 'admin.cate.list', 'uses' => 'CateController@getList']);
+        Route::get('add', ['as' => 'admin.cate.getAdd', 'uses' => 'CateController@getAdd']);
+        Route::post('add', ['as' => 'admin.cate.postAdd', 'uses' => 'CateController@postAdd']);
+    });
+});
