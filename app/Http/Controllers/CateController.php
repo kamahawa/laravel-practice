@@ -8,6 +8,12 @@ use App\Cate;
 
 class CateController extends Controller
 {
+    /*
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }*/
+
     public function getAdd ()
     {
         $parent = Cate::select('id', 'name', 'parent_id')->get()->toArray();

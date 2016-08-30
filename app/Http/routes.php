@@ -20,7 +20,8 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 
-Route::group(['prefix' => 'admin'], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','level']], function (){
+//Route::group(['prefix' => 'admin'], function (){
     Route::group(['prefix' => 'cate'], function (){
         Route::get('list', ['as' => 'admin.cate.list', 'uses' => 'CateController@getList']);
         Route::get('add', ['as' => 'admin.cate.getAdd', 'uses' => 'CateController@getAdd']);
@@ -38,5 +39,14 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('edit/{id}', ['as' => 'admin.product.getEdit', 'uses' => 'ProductController@getEdit']);
         Route::post('edit/{id}', ['as' => 'admin.product.postEdit', 'uses' => 'ProductController@postEdit']);
         Route::get('delImg/{id}', ['as' => 'admin.product.getDelImg', 'uses' => 'ProductController@getDelImg']);
+    });
+
+    Route::group(['prefix' => 'user'], function (){
+        Route::get('list', ['as' => 'admin.user.list', 'uses' => 'UserController@getList']);
+        Route::get('add', ['as' => 'admin.user.getAdd', 'uses' => 'UserController@getAdd']);
+        Route::post('add', ['as' => 'admin.user.postAdd', 'uses' => 'UserController@postAdd']);
+        Route::get('delete/{id}', ['as' => 'admin.user.getDelete', 'uses' => 'UserController@getDelete']);
+        Route::get('edit/{id}', ['as' => 'admin.user.getEdit', 'uses' => 'UserController@getEdit']);
+        Route::post('edit/{id}', ['as' => 'admin.user.postEdit', 'uses' => 'UserController@postEdit']);
     });
 });

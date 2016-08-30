@@ -10,7 +10,7 @@
 </style>
 <div class="col-lg-7" style="padding-bottom:120px">
     @include('admin.blocks.error')
-    <form action="" method="POST" name="frmEditProduct">
+    <form action="" method="POST" name="frmEditProduct" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
         <div class="col-lg-12">
             <div class="col-lg-8">
@@ -31,17 +31,18 @@
                 </div>
                 <div class="form-group">
                   <label>Intro</label>
-                  <textarea class="form-control" rows="3" name="txtIntro">{!! old('txtPrice', isset($product)? $product['intro'] : null ) !!}</textarea>
+                  <textarea class="form-control" rows="3" name="txtIntro">{!! old('txtIntro', isset($product)? $product['intro'] : null ) !!}</textarea>
                   <script type="text/javascript">ckeditor('txtIntro')</script>
                 </div>
                 <div class="form-group">
                   <label>Content</label>
-                  <textarea class="form-control" rows="3" name="txtContent">{!! old('txtPrice', isset($product)? $product['content'] : null ) !!}</textarea>
+                  <textarea class="form-control" rows="3" name="txtContent">{!! old('txtContent', isset($product)? $product['content'] : null ) !!}</textarea>
                   <script type="text/javascript">ckeditor('txtContent')</script>
                 </div>
                 <div class="form-group">
                     <label>Image current</label>
                     <img class="img_current" src="{!! asset('resources/upload/'.$product['image']) !!}">
+                    <input type="hidden" name="img_current" value="{!! $product['image'] !!}">
                 </div>
                 <div class="form-group">
                   <label>Images</label>
@@ -49,7 +50,7 @@
                 </div>
                 <div class="form-group">
                   <label>Product Keywords</label>
-                  <input class="form-control" name="txtKeywords" placeholder="Please Enter Category Keywords" value="{!! old('r', isset($product)? $product['keywords'] : null ) !!}" />
+                  <input class="form-control" name="txtKeywords" placeholder="Please Enter Category Keywords" value="{!! old('txtKeywords', isset($product)? $product['keywords'] : null ) !!}" />
                 </div>
                 <div class="form-group">
                   <label>Product Description</label>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Cate;
 use App\Product;
 use App\ProductImage;
+use Auth;
 use File;
-use Request;
+//use Request;
+use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
@@ -29,7 +31,7 @@ class ProductController extends Controller
         $product->image = $fileName;
         $product->keywords = $request->txtKeywords;
         $product->description = $request->txtDescription;
-        $product->user_id = 1;
+        $product->user_id = Auth::user()->username;
         $product->cate_id = $request->sltParent;
         $request->file('fImages')->move('resources/upload/',$fileName);
         $product->save();
@@ -80,16 +82,73 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('cate', 'product', 'product_image'));
     }
 
-    public function postEdit($id)
+    public function postEdit(Request $request, $id)
     {
+        $product = Product::find($id);
+        //2 cach dung khac nhau va dung thu vien khac nhau
+        //cach 1 dung thu vien la : use Request;
+        /*
+        $product->name = Request::input('txtName');
+        $product->alias = convert_vi_to_en( Request::input('txtName'));
+        $product->price = Request::input('txtPrice');
+        $product->intro = Request::input('txtIntro');
+        $product->content = Request::input('txtContent');
+        //$product->image = $fileName;
+        $product->keywords = Request::input('txtKeywords');
+        $product->description = Request::input('txtDescription');
+        $product->user_id = 1;
+        $product->cate_id = Request::input('sltParent');
+        */
 
+        //cach 2 dung thu vien la : use Illuminate\Http\Request;
+        $product->name = $request->txtName;
+        $product->alias = convert_vi_to_en($request->txtName);
+        $product->price = $request->txtPrice;
+        $product->intro = $request->txtIntro;
+        $product->content = $request->txtContent;
+        //$product->image = $fileName;
+        $product->keywords = $request->txtKeywords;
+        $product->description = $request->txtDescription;
+        $product->user_id = Auth::user()->username;
+        $product->cate_id = $request->sltParent;
+        //$request->file('fImages')->move('resources/upload/',$fileName);
+        $img_current = 'resources/upload/'.$request->img_current;
+        //if(!empty(Request::file('fImages')))
+        if(!empty($request->fImages))
+        {
+            $filename = $request->fImages->getClientOriginalName();
+            $product->image = $filename;
+            $request->fImages->move('resources/upload/', $filename);
+            if(File::exists($img_current))
+            {
+                File::delete($img_current);
+            }
+        }
+        $product->save();
+        if(!empty($request->fProductDetail))
+        {
+            foreach($request->fProductDetail as $file)
+            {
+                if(isset($file))
+                {
+                    $productImage = new ProductImage();
+                    $productImage->image = $file->getClientOriginalName();
+                    $productImage->product_id = $id;
+                    $file->move('resources/upload/detail', $file->getClientOriginalName());
+                    $productImage->save();
+                }
+            }
+        }
+        return redirect()->route('admin.product.list')->with(['flash_level' => 'success','flash_message' => 'Success!! Complete update product']);
     }
 
-    public function getDelImg($id)
+    public function getDelImg(Request $request, $id)
     {
-        if(Request::ajax())
+        //if(Request::ajax())
+        if($request->ajax())
         {
-            $idHinh = (int)Request::get('idHinh');
+            //$idHinh = (int)Request::get('idHinh');
+            $idHinh = (int)$request->get('idHinh');
             $image_detail = ProductImage::find($idHinh);
             if(!empty($image_detail))
             {

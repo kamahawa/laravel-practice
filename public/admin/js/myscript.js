@@ -11,7 +11,7 @@ function xacnhanxoa(msg)
 
 $(document).ready(function() {
     $("#addImages").click(function() {
-        $("#inserts").append('<div class="form-group"><label>Images</label><input type="file" name="fProductDetail[]"></div>');
+        $("#inserts").append('<div class="form-group"><input type="file" name="fProductDetail[]"></div>');
     });
 
     $("a#del_img_demo").click(function() {
@@ -34,6 +34,9 @@ $(document).ready(function() {
                 {
                     alert('error');
                 }
+            },
+            error: function(error) {
+                console.log(error);
             }
         });
     });
