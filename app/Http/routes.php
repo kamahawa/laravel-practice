@@ -20,7 +20,7 @@ Route::auth();
 Route::get('/home', 'HomeController@index');
 
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth','level']], function (){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','level.mod']], function (){
 //Route::group(['prefix' => 'admin'], function (){
     Route::group(['prefix' => 'cate'], function (){
         Route::get('list', ['as' => 'admin.cate.list', 'uses' => 'CateController@getList']);
@@ -49,4 +49,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','level']], function (
         Route::get('edit/{id}', ['as' => 'admin.user.getEdit', 'uses' => 'UserController@getEdit']);
         Route::post('edit/{id}', ['as' => 'admin.user.postEdit', 'uses' => 'UserController@postEdit']);
     });
+});
+
+Route::get('test', function () {
+    return view('user.pages.home');
 });

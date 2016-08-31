@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class CheckLevel
+class LevelAdmin
 {
     /**
      * Handle an incoming request.

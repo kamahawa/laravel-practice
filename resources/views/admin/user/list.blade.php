@@ -25,6 +25,10 @@
                 @if($item_user['level'] == 1)
                     Admin
                 @elseif($item_user['level'] == 2)
+                    Mod
+                @elseif($item_user['level'] == 0)
+                    Member in active
+                @else
                     Member
                 @endif
 

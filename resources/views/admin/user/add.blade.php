@@ -29,7 +29,10 @@
                 <input name="rdoLevel" value="1" checked="" type="radio">Admin
             </label>
             <label class="radio-inline">
-                <input name="rdoLevel" value="2" type="radio">Member
+                <input name="rdoLevel" value="2" type="radio">Mod
+            </label>
+            <label class="radio-inline">
+                <input name="rdoLevel" value="3" type="radio">Member
             </label>
         </div>
         <button type="submit" class="btn btn-default">User Add</button>
