@@ -42,12 +42,7 @@
     @include('user.blocks.otherdetail')
   <!-- Section End-->
 
-
     @yield('content')
-
-
-
-
 
 <!-- Footer -->
 <footer id="footer">

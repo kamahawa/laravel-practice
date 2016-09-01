@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'WelcomeController@index');
 
 Route::auth();
 
@@ -51,6 +49,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','level.mod']], functi
     });
 });
 
-Route::get('test', function () {
-    return view('user.pages.home');
-});
+Route::get('loai-san-pham/{id}/{tenloa}', ['as' => 'loaisanpham', 'uses' => 'WelcomeController@loaisanpham']);

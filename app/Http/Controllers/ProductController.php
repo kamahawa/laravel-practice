@@ -31,7 +31,7 @@ class ProductController extends Controller
         $product->image = $fileName;
         $product->keywords = $request->txtKeywords;
         $product->description = $request->txtDescription;
-        $product->user_id = Auth::user()->username;
+        $product->user_id = Auth::user()->id;
         $product->cate_id = $request->sltParent;
         $request->file('fImages')->move('resources/upload/',$fileName);
         $product->save();
@@ -109,7 +109,7 @@ class ProductController extends Controller
         //$product->image = $fileName;
         $product->keywords = $request->txtKeywords;
         $product->description = $request->txtDescription;
-        $product->user_id = Auth::user()->username;
+        $product->user_id = Auth::user()->id;
         $product->cate_id = $request->sltParent;
         //$request->file('fImages')->move('resources/upload/',$fileName);
         $img_current = 'resources/upload/'.$request->img_current;
