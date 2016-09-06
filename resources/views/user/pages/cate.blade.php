@@ -58,7 +58,7 @@
             @foreach($lated_product as $item_lated_product)
               <li>
                 <img width="50" height="50" src="{!! asset('resources/upload/'.$item_lated_product->image) !!}" alt="product" title="product">
-                <a class="productname" href="product.html"> {!! $item_lated_product->name !!}</a>
+                <a class="productname" href="{!! url('chi-tiet-san-pham',[$item_lated_product->id, $item_lated_product->alias]) !!}"> {!! $item_lated_product->name !!}</a>
                 <span class="procategory">{!! $name_cate->name !!}</span>
                 <span class="price">{!! number_format($item_lated_product->price, 0, ',', '.') !!}</span>
               </li>
@@ -92,10 +92,10 @@
                   <ul class="thumbnails grid">
                     @foreach($product_cate as $item)
                     <li class="span3">
-                      <a class="prdocutname" href="product.html">{!! $item->name !!}</a>
+                      <a class="prdocutname" href="{!! url('chi-tiet-san-pham',[$item->id, $item->alias]) !!}">{!! $item->name !!}</a>
                       <div class="thumbnail">
                         <span class="sale tooltip-test">Sale</span>
-                        <a href="#"><img alt="" src="{!! asset('resources/upload/'.$item->image) !!}"></a>
+                        <a href="{!! url('chi-tiet-san-pham',[$item->id, $item->alias]) !!}"><img alt="" src="{!! asset('resources/upload/'.$item->image) !!}"></a>
                         <div class="pricetag">
                           <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
                           <div class="price">
@@ -109,19 +109,17 @@
                   </ul>
                   <div class="pagination pull-right">
                     <ul>
-                      <li><a href="#">Prev</a>
-                      </li>
-                      <li class="active">
-                        <a href="#">1</a>
-                      </li>
-                      <li><a href="#">2</a>
-                      </li>
-                      <li><a href="#">3</a>
-                      </li>
-                      <li><a href="#">4</a>
-                      </li>
-                      <li><a href="#">Next</a>
-                      </li>
+                      @if($product_cate->currentPage() != 1)
+                      <li><a href="{!! str_replace('/?', '?', $product_cate->url($product_cate->currentPage() - 1)) !!}">Prev</a></li>
+                      @endif
+                        @for($i = 1; $i <= $product_cate->lastPage() ;$i++)
+                        <li class="{!! $product_cate->currentPage() == $i ? 'active' : '' !!}">
+                            <a href="{!! str_replace('/?', '?', $product_cate->url($i)) !!}">{{ $i }}</a>
+                        </li>
+                        @endfor
+                      @if($product_cate->currentPage() != $product_cate->lastPage())
+                      <li><a href="{!! str_replace('/?', '?', $product_cate->url($product_cate->currentPage() + 1)) !!}">Next</a></li>
+                      @endif
                     </ul>
                   </div>
                 </section>

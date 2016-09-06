@@ -49,4 +49,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','level.mod']], functi
     });
 });
 
-Route::get('loai-san-pham/{id}/{tenloa}', ['as' => 'loaisanpham', 'uses' => 'WelcomeController@loaisanpham']);
+Route::get('loai-san-pham/{id}/{tenloai}', ['as' => 'loaisanpham', 'uses' => 'WelcomeController@loaisanpham']);
+Route::get('chi-tiet-san-pham/{id}/{tenloai}', ['as' => 'chitietsanpham', 'uses' => 'WelcomeController@chitietsanpham']);
+
+//send mail
+Route::get('lien-he', ['as' => 'getLienHe', 'uses' => 'WelcomeController@getLienHe']);
+Route::post('lien-he', ['as' => 'postLienHe', 'uses' => 'WelcomeController@postLienHe']);
+
+//gio hang
+Route::get('mua-hang/{id}/{tensanpham}', ['as' => 'muahang', 'uses' => 'WelcomeController@muahang']);
+Route::get('gio-hang', ['as' => 'giohang', 'uses' => 'WelcomeController@giohang']);
+
+

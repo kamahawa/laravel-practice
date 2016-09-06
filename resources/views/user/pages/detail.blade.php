@@ -1,6 +1,6 @@
 @extends('user.master')
 
-@section('description', 'Day la trang chu')
+@section('description', 'Day la trang chi tiet san pham')
 
 @section('content')
   <section id="product">
@@ -11,57 +11,41 @@
         <div class="span5">
           <ul class="thumbnails mainimage">
             <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="img/product1big.jpg">
-                <img src="img/product1big.jpg" alt="" title="">
+              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{!! asset('resources/upload/'.$product_detail->image) !!}">
+                <img src="{!! asset('resources/upload/'.$product_detail->image) !!}" alt="" title="">
               </a>
             </li>
+            @foreach($image as $item_image)
             <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="img/product2big.jpg">
-                <img  src="img/product2big.jpg" alt="" title="">
+              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="{!! asset('resources/upload/detail/'.$item_image->image) !!}">
+                <img  src="{!! asset('resources/upload/detail/'.$item_image->image) !!}" alt="" title="">
               </a>
             </li>
-            <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="img/product1big.jpg">
-                <img src="img/product1big.jpg" alt="" title="">
-              </a>
-            </li>
-            <li class="span5">
-              <a  rel="position: 'inside' , showTitle: false, adjustX:-4, adjustY:-4" class="thumbnail cloud-zoom" href="img/product2big.jpg">
-                <img  src="img/product2big.jpg" alt="" title="">
-              </a>
-            </li>
+            @endforeach
           </ul>
           <ul class="thumbnails mainimage">
             <li class="producthtumb">
               <a class="thumbnail" >
-                <img  src="img/product1.jpg" alt="" title="">
+                <img  src="{!! asset('resources/upload/'.$product_detail->image) !!}" alt="" title="">
               </a>
             </li>
+            @foreach($image as $item_image)
             <li class="producthtumb">
               <a class="thumbnail" >
-                <img  src="img/product2.jpg" alt="" title="">
+                <img  src="{!! asset('resources/upload/detail/'.$item_image->image) !!}" alt="" title="">
               </a>
             </li>
-            <li class="producthtumb">
-              <a class="thumbnail" >
-                <img  src="img/product1.jpg" alt="" title="">
-              </a>
-            </li>
-            <li class="producthtumb">
-              <a class="thumbnail" >
-                <img  src="img/product2.jpg" alt="" title="">
-              </a>
-            </li>
+            @endforeach
           </ul>
         </div>
          <!-- Right Details-->
         <div class="span7">
           <div class="row">
             <div class="span7">
-              <h1 class="productname"><span class="bgnone">My First Simle One Ecommerce template</span></h1>
+              <h1 class="productname"><span class="bgnone">{!! $product_detail->name !!}</span></h1>
               <div class="productprice">
                 <div class="productpageprice">
-                  <span class="spiral"></span>$230.00</div>
+                  <span class="spiral"></span>{!! number_format($product_detail->price, 0, ',', '.') !!}</div>
               </div>
               <ul class="productpagecart">
                 <li><a class="cart" href="#">Add to Cart</a>
@@ -175,60 +159,22 @@
     <div class="container">
       <h1 class="heading1"><span class="maintext">Related Products</span><span class="subtext"> See Our Most featured Products</span></h1>
       <ul class="thumbnails">
+        @foreach($product_cate as $item_product_cate)
         <li class="span3">
-          <a class="prdocutname" href="product.html">Product Name Here</a>
+          <a class="prdocutname" href="{!! url('chi-tiet-san-pham', [ $item_product_cate->id, $item_product_cate->alias]) !!}">{!! $item_product_cate->name !!}</a>
           <div class="thumbnail">
             <span class="sale tooltip-test">Sale</span>
-            <a href="#"><img alt="" src="img/product1.jpg"></a>
+            <a href="{!! url('chi-tiet-san-pham', [ $item_product_cate->id, $item_product_cate->alias]) !!}"><img alt="" src="{!! asset('resources/upload/'.$item_product_cate->image) !!}"></a>
             <div class="pricetag">
               <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
               <div class="price">
-                <div class="pricenew">$4459.00</div>
-                <div class="priceold">$5000.00</div>
+                <div class="pricenew">{!! $item_product_cate->price !!}</div>
+                <div class="priceold"></div>
               </div>
             </div>
           </div>
         </li>
-        <li class="span3">
-          <a class="prdocutname" href="product.html">Product Name Here</a>
-          <div class="thumbnail">
-            <a href="#"><img alt="" src="img/product2.jpg"></a>
-            <div class="pricetag">
-              <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
-              <div class="price">
-                <div class="pricenew">$4459.00</div>
-                <div class="priceold">$5000.00</div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="span3">
-          <a class="prdocutname" href="product.html">Product Name Here</a>
-          <div class="thumbnail">
-            <span class="offer tooltip-test" >Offer</span>
-            <a href="#"><img alt="" src="img/product1.jpg"></a>
-            <div class="pricetag">
-              <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
-              <div class="price">
-                <div class="pricenew">$4459.00</div>
-                <div class="priceold">$5000.00</div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="span3">
-          <a class="prdocutname" href="product.html">Product Name Here</a>
-          <div class="thumbnail">
-            <a href="#"><img alt="" src="img/product2.jpg"></a>
-            <div class="pricetag">
-              <span class="spiral"></span><a href="#" class="productcart">ADD TO CART</a>
-              <div class="price">
-                <div class="pricenew">$4459.00</div>
-                <div class="priceold">$5000.00</div>
-              </div>
-            </div>
-          </div>
-        </li>
+        @endforeach
       </ul>
     </div>
   </section>

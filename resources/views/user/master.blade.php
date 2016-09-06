@@ -121,11 +121,11 @@
 <script defer src="{{ url('public/user/js/jquery.flexslider.js')}}"></script>
 <script type="text/javascript" src="{{ url('public/user/js/jquery.tweet.js')}}"></script>
 <script  src="{{ url('public/user/js/cloud-zoom.1.0.2.js')}}"></script>
-<script  type="{{ url('public/user/text/javascript" src="js/jquery.validate.js')}}"></script>
-<script type="{{ url('public/user/text/javascript"  src="js/jquery.carouFredSel-6.1.0-packed.js')}}"></script>
-<script type="{{ url('public/user/text/javascript"  src="js/jquery.mousewheel.min.js')}}"></script>
-<script type="{{ url('public/user/text/javascript"  src="js/jquery.touchSwipe.min.js')}}"></script>
-<script type="{{ url('public/user/text/javascript"  src="js/jquery.ba-throttle-debounce.min.js')}}"></script>
+<script  type="text/javascript" src="{{ url('public/user/js/jquery.validate.js')}}"></script>
+<script type="text/javascript"  src="{{ url('public/user/js/jquery.carouFredSel-6.1.0-packed.js')}}"></script>
+<script type="text/javascript"  src="{{ url('public/user/js/jquery.mousewheel.min.js')}}"></script>
+<script type="text/javascript"  src="{{ url('public/user/js/jquery.touchSwipe.min.js')}}"></script>
+<script type="text/javascript"  src="{{ url('public/user/js/jquery.ba-throttle-debounce.min.js')}}"></script>
 <script defer src="{{ url('public/user/js/custom.js')}}"></script>
 </body>
 </html>
