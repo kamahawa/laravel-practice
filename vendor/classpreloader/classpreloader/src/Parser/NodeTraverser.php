@@ -21,23 +21,23 @@ use PhpParser\NodeTraverser as BaseTraverser;
  */
 class NodeTraverser extends BaseTraverser
 {
-    /**
-     * Transverse the file.
-     *
-     * @param array  $nodes
-     * @param string $filename
-     *
-     * @return \PhpParser\Node[]
-     */
-    public function traverseFile(array $nodes, $filename)
-    {
-        // Set the correct state on each visitor
-        foreach ($this->visitors as $visitor) {
-            if ($visitor instanceof AbstractNodeVisitor) {
-                $visitor->setFilename($filename);
-            }
-        }
+	/**
+	 * Transverse the file.
+	 *
+	 * @param array $nodes
+	 * @param string $filename
+	 *
+	 * @return \PhpParser\Node[]
+	 */
+	public function traverseFile(array $nodes, $filename)
+	{
+		// Set the correct state on each visitor
+		foreach ($this->visitors as $visitor) {
+			if ($visitor instanceof AbstractNodeVisitor) {
+				$visitor->setFilename($filename);
+			}
+		}
 
-        return $this->traverse($nodes);
-    }
+		return $this->traverse($nodes);
+	}
 }

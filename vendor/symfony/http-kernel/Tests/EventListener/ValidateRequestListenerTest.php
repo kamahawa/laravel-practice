@@ -20,23 +20,23 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class ValidateRequestListenerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @expectedException Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException
-     */
-    public function testListenerThrowsWhenMasterRequestHasInconsistentClientIps()
-    {
-        $dispatcher = new EventDispatcher();
-        $kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+	/**
+	 * @expectedException Symfony\Component\HttpFoundation\Exception\ConflictingHeadersException
+	 */
+	public function testListenerThrowsWhenMasterRequestHasInconsistentClientIps()
+	{
+		$dispatcher = new EventDispatcher();
+		$kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
 
-        $request = new Request();
-        $request->setTrustedProxies(array('1.1.1.1'));
-        $request->server->set('REMOTE_ADDR', '1.1.1.1');
-        $request->headers->set('FORWARDED', '2.2.2.2');
-        $request->headers->set('X_FORWARDED_FOR', '3.3.3.3');
+		$request = new Request();
+		$request->setTrustedProxies(array('1.1.1.1'));
+		$request->server->set('REMOTE_ADDR', '1.1.1.1');
+		$request->headers->set('FORWARDED', '2.2.2.2');
+		$request->headers->set('X_FORWARDED_FOR', '3.3.3.3');
 
-        $dispatcher->addListener(KernelEvents::REQUEST, array(new ValidateRequestListener(), 'onKernelRequest'));
-        $event = new GetResponseEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
+		$dispatcher->addListener(KernelEvents::REQUEST, array(new ValidateRequestListener(), 'onKernelRequest'));
+		$event = new GetResponseEvent($kernel, $request, HttpKernelInterface::MASTER_REQUEST);
 
-        $dispatcher->dispatch(KernelEvents::REQUEST, $event);
-    }
+		$dispatcher->dispatch(KernelEvents::REQUEST, $event);
+	}
 }

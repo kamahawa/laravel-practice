@@ -9,5 +9,5 @@ use RuntimeException;
  */
 class ValidationException extends RuntimeException implements ExceptionInterface
 {
-    //
+	//
 }

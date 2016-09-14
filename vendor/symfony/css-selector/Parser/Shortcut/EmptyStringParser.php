@@ -31,16 +31,16 @@ use Symfony\Component\CssSelector\Parser\ParserInterface;
  */
 class EmptyStringParser implements ParserInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function parse($source)
-    {
-        // Matches an empty string
-        if ($source == '') {
-            return array(new SelectorNode(new ElementNode(null, '*')));
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function parse($source)
+	{
+		// Matches an empty string
+		if ($source == '') {
+			return array(new SelectorNode(new ElementNode(null, '*')));
+		}
 
-        return array();
-    }
+		return array();
+	}
 }

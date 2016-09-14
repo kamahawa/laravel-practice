@@ -38,7 +38,7 @@ $.fn.dataTableExt.oPagination.listbox = {
 		nPaging.appendChild(nInput);
 		nPaging.appendChild(nOf);
 		$(nInput).change(function (e) { // Set DataTables page property and redraw the grid on listbox change event.
-			window.scroll(0,0); //scroll to top of page
+			window.scroll(0, 0); //scroll to top of page
 			if (this.value === "" || this.value.match(/[^0-9]/)) { /* Nothing entered or non-numeric character */
 				return;
 			}
@@ -50,7 +50,8 @@ $.fn.dataTableExt.oPagination.listbox = {
 			}
 			oSettings._iDisplayStart = iNewStart;
 			fnCallbackDraw(oSettings);
-		}); /* Take the brutal approach to cancelling text selection */
+		});
+		/* Take the brutal approach to cancelling text selection */
 		$('span', nPaging).bind('mousedown', function () {
 			return false;
 		});
@@ -58,7 +59,7 @@ $.fn.dataTableExt.oPagination.listbox = {
 			return false;
 		});
 	},
-	 
+
 	/*
 	 * Function: oPagination.listbox.fnUpdate
 	 * Purpose:  Update the listbox element
@@ -71,13 +72,14 @@ $.fn.dataTableExt.oPagination.listbox = {
 			return;
 		}
 		var iPages = Math.ceil((oSettings.fnRecordsDisplay()) / oSettings._iDisplayLength);
-		var iCurrentPage = Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength) + 1; /* Loop over each instance of the pager */
+		var iCurrentPage = Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength) + 1;
+		/* Loop over each instance of the pager */
 		var an = oSettings.aanFeatures.p;
 		for (var i = 0, iLen = an.length; i < iLen; i++) {
 			var spans = an[i].getElementsByTagName('span');
 			var inputs = an[i].getElementsByTagName('select');
 			var elSel = inputs[0];
-			if(elSel.options.length != iPages) {
+			if (elSel.options.length != iPages) {
 				elSel.options.length = 0; //clear the listbox contents
 				for (var j = 0; j < iPages; j++) { //add the pages
 					var oOption = document.createElement('option');
@@ -91,7 +93,7 @@ $.fn.dataTableExt.oPagination.listbox = {
 				}
 				spans[1].innerHTML = "&nbsp;of&nbsp;" + iPages;
 			}
-		  elSel.value = iCurrentPage;
+			elSel.value = iCurrentPage;
 		}
 	}
 };

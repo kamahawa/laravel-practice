@@ -18,19 +18,18 @@
  *    } );
  */
 
-jQuery.fn.dataTableExt.oApi.fnSortNeutral = function ( oSettings )
-{
+jQuery.fn.dataTableExt.oApi.fnSortNeutral = function (oSettings) {
 	/* Remove any current sorting */
 	oSettings.aaSorting = [];
 
 	/* Sort display arrays so we get them in numerical order */
-	oSettings.aiDisplay.sort( function (x,y) {
-		return x-y;
-	} );
-	oSettings.aiDisplayMaster.sort( function (x,y) {
-		return x-y;
-	} );
+	oSettings.aiDisplay.sort(function (x, y) {
+		return x - y;
+	});
+	oSettings.aiDisplayMaster.sort(function (x, y) {
+		return x - y;
+	});
 
 	/* Redraw */
-	oSettings.oApi._fnReDraw( oSettings );
+	oSettings.oApi._fnReDraw(oSettings);
 };

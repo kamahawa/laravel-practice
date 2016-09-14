@@ -11,7 +11,7 @@ $docComment = <<<DOCCOMMENT
  */
 DOCCOMMENT;
 
-$factory  = DocBlockFactory::createInstance();
+$factory = DocBlockFactory::createInstance();
 $docblock = $factory->create($docComment);
 
 // You can check if a DocBlock has one or more see tags

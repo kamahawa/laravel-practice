@@ -18,14 +18,14 @@ use Symfony\Component\VarDumper\Cloner\VarCloner;
  */
 class VarClonerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testMaxIntBoundary()
-    {
-        $data = array(PHP_INT_MAX => 123);
+	public function testMaxIntBoundary()
+	{
+		$data = array(PHP_INT_MAX => 123);
 
-        $cloner = new VarCloner();
-        $clone = $cloner->cloneVar($data);
+		$cloner = new VarCloner();
+		$clone = $cloner->cloneVar($data);
 
-        $expected = <<<EOTXT
+		$expected = <<<EOTXT
 Symfony\Component\VarDumper\Cloner\Data Object
 (
     [data:Symfony\Component\VarDumper\Cloner\Data:private] => Array
@@ -58,17 +58,17 @@ Symfony\Component\VarDumper\Cloner\Data Object
 )
 
 EOTXT;
-        $this->assertSame(sprintf($expected, PHP_INT_MAX), print_r($clone, true));
-    }
+		$this->assertSame(sprintf($expected, PHP_INT_MAX), print_r($clone, true));
+	}
 
-    public function testClone()
-    {
-        $json = json_decode('{"1":{"var":"val"},"2":{"var":"val"}}');
+	public function testClone()
+	{
+		$json = json_decode('{"1":{"var":"val"},"2":{"var":"val"}}');
 
-        $cloner = new VarCloner();
-        $clone = $cloner->cloneVar($json);
+		$cloner = new VarCloner();
+		$clone = $cloner->cloneVar($json);
 
-        $expected = <<<EOTXT
+		$expected = <<<EOTXT
 Symfony\Component\VarDumper\Cloner\Data Object
 (
     [data:Symfony\Component\VarDumper\Cloner\Data:private] => Array
@@ -132,17 +132,17 @@ Symfony\Component\VarDumper\Cloner\Data Object
 )
 
 EOTXT;
-        $this->assertStringMatchesFormat($expected, print_r($clone, true));
-    }
+		$this->assertStringMatchesFormat($expected, print_r($clone, true));
+	}
 
-    public function testJsonCast()
-    {
-        $data = (array) json_decode('{"1":{}}');
+	public function testJsonCast()
+	{
+		$data = (array)json_decode('{"1":{}}');
 
-        $cloner = new VarCloner();
-        $clone = $cloner->cloneVar($data);
+		$cloner = new VarCloner();
+		$clone = $cloner->cloneVar($data);
 
-        $expected = <<<'EOTXT'
+		$expected = <<<'EOTXT'
 object(Symfony\Component\VarDumper\Cloner\Data)#%i (4) {
   ["data":"Symfony\Component\VarDumper\Cloner\Data":private]=>
   array(2) {
@@ -196,26 +196,26 @@ object(Symfony\Component\VarDumper\Cloner\Data)#%i (4) {
 }
 
 EOTXT;
-        ob_start();
-        var_dump($clone);
-        $this->assertStringMatchesFormat($expected, ob_get_clean());
-    }
+		ob_start();
+		var_dump($clone);
+		$this->assertStringMatchesFormat($expected, ob_get_clean());
+	}
 
-    public function testCaster()
-    {
-        $cloner = new VarCloner(array(
-            '*' => function ($obj, $array) {
-                return array('foo' => 123);
-            },
-            __CLASS__ => function ($obj, $array) {
-                ++$array['foo'];
+	public function testCaster()
+	{
+		$cloner = new VarCloner(array(
+			'*' => function ($obj, $array) {
+				return array('foo' => 123);
+			},
+			__CLASS__ => function ($obj, $array) {
+				++$array['foo'];
 
-                return $array;
-            },
-        ));
-        $clone = $cloner->cloneVar($this);
+				return $array;
+			},
+		));
+		$clone = $cloner->cloneVar($this);
 
-        $expected = <<<EOTXT
+		$expected = <<<EOTXT
 Symfony\Component\VarDumper\Cloner\Data Object
 (
     [data:Symfony\Component\VarDumper\Cloner\Data:private] => Array
@@ -248,6 +248,6 @@ Symfony\Component\VarDumper\Cloner\Data Object
 )
 
 EOTXT;
-        $this->assertStringMatchesFormat($expected, print_r($clone, true));
-    }
+		$this->assertStringMatchesFormat($expected, print_r($clone, true));
+	}
 }

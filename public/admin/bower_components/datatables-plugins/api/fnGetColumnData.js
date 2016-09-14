@@ -23,24 +23,24 @@
  *    table.fnGetColumnData( 3 );
  */
 
-jQuery.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty ) {
+jQuery.fn.dataTableExt.oApi.fnGetColumnData = function (oSettings, iColumn, bUnique, bFiltered, bIgnoreEmpty) {
 	// check that we have a column id
-	if ( typeof iColumn == "undefined" ) {
+	if (typeof iColumn == "undefined") {
 		return [];
 	}
 
 	// by default we only wany unique data
-	if ( typeof bUnique == "undefined" ) {
+	if (typeof bUnique == "undefined") {
 		bUnique = true;
 	}
 
 	// by default we do want to only look at filtered data
-	if ( typeof bFiltered == "undefined" ) {
+	if (typeof bFiltered == "undefined") {
 		bFiltered = true;
 	}
 
 	// by default we do not wany to include empty values
-	if ( typeof bIgnoreEmpty == "undefined" ) {
+	if (typeof bIgnoreEmpty == "undefined") {
 		bIgnoreEmpty = true;
 	}
 
@@ -59,7 +59,7 @@ jQuery.fn.dataTableExt.oApi.fnGetColumnData = function ( oSettings, iColumn, bUn
 	// set up data array    
 	var asResultData = [];
 
-	for (var i=0,c=aiRows.length; i<c; i++) {
+	for (var i = 0, c = aiRows.length; i < c; i++) {
 		var iRow = aiRows[i];
 		var sValue = this.fnGetData(iRow, iColumn);
 

@@ -17,10 +17,9 @@
  *    table.fnProcessingIndicator(false); // Off
  */
 
-jQuery.fn.dataTableExt.oApi.fnProcessingIndicator = function ( oSettings, onoff )
-{
-	if ( onoff === undefined ) {
+jQuery.fn.dataTableExt.oApi.fnProcessingIndicator = function (oSettings, onoff) {
+	if (onoff === undefined) {
 		onoff = true;
 	}
-	this.oApi._fnProcessingDisplay( oSettings, onoff );
+	this.oApi._fnProcessingDisplay(oSettings, onoff);
 };

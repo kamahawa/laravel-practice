@@ -50,54 +50,54 @@ use Webmozart\Assert\Assert;
  */
 class Description
 {
-    /** @var string */
-    private $bodyTemplate;
+	/** @var string */
+	private $bodyTemplate;
 
-    /** @var Tag[] */
-    private $tags;
+	/** @var Tag[] */
+	private $tags;
 
-    /**
-     * Initializes a Description with its body (template) and a listing of the tags used in the body template.
-     *
-     * @param string $bodyTemplate
-     * @param Tag[] $tags
-     */
-    public function __construct($bodyTemplate, array $tags = [])
-    {
-        Assert::string($bodyTemplate);
+	/**
+	 * Initializes a Description with its body (template) and a listing of the tags used in the body template.
+	 *
+	 * @param string $bodyTemplate
+	 * @param Tag[] $tags
+	 */
+	public function __construct($bodyTemplate, array $tags = [])
+	{
+		Assert::string($bodyTemplate);
 
-        $this->bodyTemplate = $bodyTemplate;
-        $this->tags = $tags;
-    }
+		$this->bodyTemplate = $bodyTemplate;
+		$this->tags = $tags;
+	}
 
-    /**
-     * Renders this description as a string where the provided formatter will format the tags in the expected string
-     * format.
-     *
-     * @param Formatter|null $formatter
-     *
-     * @return string
-     */
-    public function render(Formatter $formatter = null)
-    {
-        if ($formatter === null) {
-            $formatter = new PassthroughFormatter();
-        }
+	/**
+	 * Renders this description as a string where the provided formatter will format the tags in the expected string
+	 * format.
+	 *
+	 * @param Formatter|null $formatter
+	 *
+	 * @return string
+	 */
+	public function render(Formatter $formatter = null)
+	{
+		if ($formatter === null) {
+			$formatter = new PassthroughFormatter();
+		}
 
-        $tags = [];
-        foreach ($this->tags as $tag) {
-            $tags[] = '{' . $formatter->format($tag) . '}';
-        }
-        return vsprintf($this->bodyTemplate, $tags);
-    }
+		$tags = [];
+		foreach ($this->tags as $tag) {
+			$tags[] = '{' . $formatter->format($tag) . '}';
+		}
+		return vsprintf($this->bodyTemplate, $tags);
+	}
 
-    /**
-     * Returns a plain string representation of this description.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
+	/**
+	 * Returns a plain string representation of this description.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->render();
+	}
 }

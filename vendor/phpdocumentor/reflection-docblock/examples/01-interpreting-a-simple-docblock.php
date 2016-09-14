@@ -14,7 +14,7 @@ $docComment = <<<DOCCOMMENT
  */
 DOCCOMMENT;
 
-$factory  = DocBlockFactory::createInstance();
+$factory = DocBlockFactory::createInstance();
 $docblock = $factory->create($docComment);
 
 // Should contain the first line of the DocBlock

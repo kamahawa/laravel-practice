@@ -25,58 +25,58 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class DumpListenerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testSubscribedEvents()
-    {
-        $this->assertSame(
-            array(KernelEvents::REQUEST => array('configure', 1024)),
-            DumpListener::getSubscribedEvents()
-        );
-    }
+	public function testSubscribedEvents()
+	{
+		$this->assertSame(
+			array(KernelEvents::REQUEST => array('configure', 1024)),
+			DumpListener::getSubscribedEvents()
+		);
+	}
 
-    public function testConfigure()
-    {
-        $prevDumper = VarDumper::setHandler('var_dump');
-        VarDumper::setHandler($prevDumper);
+	public function testConfigure()
+	{
+		$prevDumper = VarDumper::setHandler('var_dump');
+		VarDumper::setHandler($prevDumper);
 
-        $cloner = new MockCloner();
-        $dumper = new MockDumper();
+		$cloner = new MockCloner();
+		$dumper = new MockDumper();
 
-        ob_start();
-        $exception = null;
-        $listener = new DumpListener($cloner, $dumper);
+		ob_start();
+		$exception = null;
+		$listener = new DumpListener($cloner, $dumper);
 
-        try {
-            $listener->configure();
+		try {
+			$listener->configure();
 
-            VarDumper::dump('foo');
-            VarDumper::dump('bar');
+			VarDumper::dump('foo');
+			VarDumper::dump('bar');
 
-            $this->assertSame('+foo-+bar-', ob_get_clean());
-        } catch (\Exception $exception) {
-        }
+			$this->assertSame('+foo-+bar-', ob_get_clean());
+		} catch (\Exception $exception) {
+		}
 
-        VarDumper::setHandler($prevDumper);
+		VarDumper::setHandler($prevDumper);
 
-        if (null !== $exception) {
-            throw $exception;
-        }
-    }
+		if (null !== $exception) {
+			throw $exception;
+		}
+	}
 }
 
 class MockCloner implements ClonerInterface
 {
-    public function cloneVar($var)
-    {
-        return new Data(array($var.'-'));
-    }
+	public function cloneVar($var)
+	{
+		return new Data(array($var . '-'));
+	}
 }
 
 class MockDumper implements DataDumperInterface
 {
-    public function dump(Data $data)
-    {
-        $rawData = $data->getRawData();
+	public function dump(Data $data)
+	{
+		$rawData = $data->getRawData();
 
-        echo '+'.$rawData[0];
-    }
+		echo '+' . $rawData[0];
+	}
 }

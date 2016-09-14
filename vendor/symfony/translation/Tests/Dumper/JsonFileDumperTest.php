@@ -16,23 +16,23 @@ use Symfony\Component\Translation\Dumper\JsonFileDumper;
 
 class JsonFileDumperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFormatCatalogue()
-    {
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'));
+	public function testFormatCatalogue()
+	{
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'));
 
-        $dumper = new JsonFileDumper();
+		$dumper = new JsonFileDumper();
 
-        $this->assertStringEqualsFile(__DIR__.'/../fixtures/resources.json', $dumper->formatCatalogue($catalogue, 'messages'));
-    }
+		$this->assertStringEqualsFile(__DIR__ . '/../fixtures/resources.json', $dumper->formatCatalogue($catalogue, 'messages'));
+	}
 
-    public function testDumpWithCustomEncoding()
-    {
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => '"bar"'));
+	public function testDumpWithCustomEncoding()
+	{
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => '"bar"'));
 
-        $dumper = new JsonFileDumper();
+		$dumper = new JsonFileDumper();
 
-        $this->assertStringEqualsFile(__DIR__.'/../fixtures/resources.dump.json', $dumper->formatCatalogue($catalogue, 'messages', array('json_encoding' => JSON_HEX_QUOT)));
-    }
+		$this->assertStringEqualsFile(__DIR__ . '/../fixtures/resources.dump.json', $dumper->formatCatalogue($catalogue, 'messages', array('json_encoding' => JSON_HEX_QUOT)));
+	}
 }

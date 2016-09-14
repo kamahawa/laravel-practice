@@ -9,26 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function getLogin()
-    {
-        return view('admin.login');
-    }
+	public function getLogin()
+	{
+		return view('admin.login');
+	}
 
-    public function postLogin(LoginRequest $request)
-    {
-        $login = array(
-            'username' => $request->username,
-            'password' => $request->password,
-            'level' => 1
-        );
+	public function postLogin(LoginRequest $request)
+	{
+		$login = array(
+			'username' => $request->username,
+			'password' => $request->password,
+			'level' => 1
+		);
 
-        if(Auth::attempt($login))
-        {
-            return redirect()->route('admin.cate.list');
-        }
-        else
-        {
-            return redirect()->back();
-        }
-    }
+		if (Auth::attempt($login)) {
+			return redirect()->route('admin.cate.list');
+		} else {
+			return redirect()->back();
+		}
+	}
 }

@@ -22,18 +22,18 @@ use phpDocumentor\Reflection\DocBlock\Tags\See;
  */
 class UsingTagsTest extends \PHPUnit_Framework_TestCase
 {
-    public function testAddingYourOwnTagUsingAStaticMethodAsFactory()
-    {
-        /**
-         * @var object[] $customTagObjects
-         * @var string   $docComment
-         * @var string   $reconstitutedDocComment
-         */
-        include(__DIR__ . '/../../examples/04-adding-your-own-tag.php');
+	public function testAddingYourOwnTagUsingAStaticMethodAsFactory()
+	{
+		/**
+		 * @var object[] $customTagObjects
+		 * @var string $docComment
+		 * @var string $reconstitutedDocComment
+		 */
+		include(__DIR__ . '/../../examples/04-adding-your-own-tag.php');
 
-        $this->assertInstanceOf(\MyTag::class, $customTagObjects[0]);
-        $this->assertSame('my-tag', $customTagObjects[0]->getName());
-        $this->assertSame('I have a description', (string)$customTagObjects[0]->getDescription());
-        $this->assertSame($docComment, $reconstitutedDocComment);
-    }
+		$this->assertInstanceOf(\MyTag::class, $customTagObjects[0]);
+		$this->assertSame('my-tag', $customTagObjects[0]->getName());
+		$this->assertSame('I have a description', (string)$customTagObjects[0]->getDescription());
+		$this->assertSame($docComment, $reconstitutedDocComment);
+	}
 }

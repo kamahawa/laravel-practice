@@ -1,5 +1,5 @@
 .. index::
-    single: Reference; Examples
+single: Reference; Examples
 
 Quick Examples
 ==============

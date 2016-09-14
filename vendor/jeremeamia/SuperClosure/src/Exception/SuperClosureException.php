@@ -5,5 +5,5 @@
  */
 interface SuperClosureException
 {
-    //
+	//
 }

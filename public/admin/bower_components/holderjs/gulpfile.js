@@ -13,14 +13,14 @@ var banner =
 	'/*!\n\n' +
 	'<%= pkg.name %> - <%= pkg.summary %>\nVersion <%= pkg.version %>+<%= build %>\n' +
 	'\u00A9 <%= year %> <%= pkg.author.name %> - <%= pkg.author.url %>\n\n' +
-	'Site:     <%= pkg.homepage %>\n'+
+	'Site:     <%= pkg.homepage %>\n' +
 	'Issues:   <%= pkg.bugs.url %>\n' +
 	'License:  <%= pkg.license.url %>\n\n' +
 	'*/\n';
 
-function generateBuild(){
+function generateBuild() {
 	var date = new Date;
-	return Math.floor((date - (new Date(date.getFullYear(),0,0)))/1000).toString(36)
+	return Math.floor((date - (new Date(date.getFullYear(), 0, 0))) / 1000).toString(36)
 }
 
 var build = generateBuild();
@@ -35,7 +35,7 @@ gulp.task('jshint', function () {
 		.pipe(jshint.reporter('default'))
 });
 
-gulp.task('todo', function(){
+gulp.task('todo', function () {
 	return gulp.src(paths.scripts)
 		.pipe(todo())
 		.pipe(gulp.dest('./'))
@@ -53,11 +53,11 @@ gulp.task('scripts', ['jshint'], function () {
 		.pipe(gulp.dest("./"))
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', function () {
 	gulp.watch(paths.scripts, ['default']);
 });
 
-gulp.task('default', ['todo', 'jshint', 'scripts'], function(){
+gulp.task('default', ['todo', 'jshint', 'scripts'], function () {
 	build = generateBuild();
-	gulputil.log("Finished build "+build);
+	gulputil.log("Finished build " + build);
 });

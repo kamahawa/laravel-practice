@@ -24,47 +24,47 @@ use phpDocumentor\Reflection\Type;
  */
 final class Object_ implements Type
 {
-    /** @var Fqsen|null */
-    private $fqsen;
+	/** @var Fqsen|null */
+	private $fqsen;
 
-    /**
-     * Initializes this object with an optional FQSEN, if not provided this object is considered 'untyped'.
-     *
-     * @param Fqsen $fqsen
-     */
-    public function __construct(Fqsen $fqsen = null)
-    {
-        if (strpos((string)$fqsen, '::') !== false || strpos((string)$fqsen, '()') !== false) {
-            throw new \InvalidArgumentException(
-                'Object types can only refer to a class, interface or trait but a method, function, constant or '
-                . 'property was received: ' . (string)$fqsen
-            );
-        }
+	/**
+	 * Initializes this object with an optional FQSEN, if not provided this object is considered 'untyped'.
+	 *
+	 * @param Fqsen $fqsen
+	 */
+	public function __construct(Fqsen $fqsen = null)
+	{
+		if (strpos((string)$fqsen, '::') !== false || strpos((string)$fqsen, '()') !== false) {
+			throw new \InvalidArgumentException(
+				'Object types can only refer to a class, interface or trait but a method, function, constant or '
+				. 'property was received: ' . (string)$fqsen
+			);
+		}
 
-        $this->fqsen = $fqsen;
-    }
+		$this->fqsen = $fqsen;
+	}
 
-    /**
-     * Returns the FQSEN associated with this object.
-     *
-     * @return Fqsen|null
-     */
-    public function getFqsen()
-    {
-        return $this->fqsen;
-    }
+	/**
+	 * Returns the FQSEN associated with this object.
+	 *
+	 * @return Fqsen|null
+	 */
+	public function getFqsen()
+	{
+		return $this->fqsen;
+	}
 
-    /**
-     * Returns a rendered output of the Type as it would be used in a DocBlock.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if ($this->fqsen) {
-            return (string)$this->fqsen;
-        }
+	/**
+	 * Returns a rendered output of the Type as it would be used in a DocBlock.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		if ($this->fqsen) {
+			return (string)$this->fqsen;
+		}
 
-        return 'object';
-    }
+		return 'object';
+	}
 }

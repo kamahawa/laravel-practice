@@ -23,19 +23,19 @@ use PhpParser\Node\Stmt\DeclareDeclare;
  */
 class StrictTypesVisitor extends AbstractNodeVisitor
 {
-    /**
-     * Enter and modify the node.
-     *
-     * @param \PhpParser\Node $node
-     *
-     * @throws \ClassPreloader\Exceptions\StrictTypesException
-     *
-     * @return null
-     */
-    public function enterNode(Node $node)
-    {
-        if ($node instanceof DeclareDeclare && ($node->getLine() === 1 || $node->getLine() === 2)) {
-            throw new StrictTypesException();
-        }
-    }
+	/**
+	 * Enter and modify the node.
+	 *
+	 * @param \PhpParser\Node $node
+	 *
+	 * @throws \ClassPreloader\Exceptions\StrictTypesException
+	 *
+	 * @return null
+	 */
+	public function enterNode(Node $node)
+	{
+		if ($node instanceof DeclareDeclare && ($node->getLine() === 1 || $node->getLine() === 2)) {
+			throw new StrictTypesException();
+		}
+	}
 }

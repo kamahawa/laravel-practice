@@ -13,22 +13,22 @@
  */
 class Framework_BaseTestListenerTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var PHPUnit_Framework_TestResult
-     */
-    private $result;
+	/**
+	 * @var PHPUnit_Framework_TestResult
+	 */
+	private $result;
 
-    /**
-     * @covers PHPUnit_Framework_TestResult
-     */
-    public function testEndEventsAreCounted()
-    {
-        $this->result = new PHPUnit_Framework_TestResult;
-        $listener     = new BaseTestListenerSample();
-        $this->result->addListener($listener);
-        $test = new Success;
-        $test->run($this->result);
+	/**
+	 * @covers PHPUnit_Framework_TestResult
+	 */
+	public function testEndEventsAreCounted()
+	{
+		$this->result = new PHPUnit_Framework_TestResult;
+		$listener = new BaseTestListenerSample();
+		$this->result->addListener($listener);
+		$test = new Success;
+		$test->run($this->result);
 
-        $this->assertEquals(1, $listener->endCount);
-    }
+		$this->assertEquals(1, $listener->endCount);
+	}
 }

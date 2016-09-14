@@ -42,7 +42,8 @@
         <available file="${basedir}/composer.lock" property="dependencies-installed"/>
     </target>
 
-    <target name="install-dependencies" unless="dependencies-installed" depends="-dependencies-installed,validate-composer-json" description="Install dependencies with Composer">
+    <target name="install-dependencies" unless="dependencies-installed"
+            depends="-dependencies-installed,validate-composer-json" description="Install dependencies with Composer">
         <exec executable="${basedir}/build/tools/composer" taskname="composer">
             <env key="COMPOSER_DISABLE_XDEBUG_WARN" value="1"/>
             <arg value="install"/>
@@ -80,7 +81,8 @@
         <exec executable="${basedir}/phpunit" taskname="phpunit"/>
     </target>
 
-    <target name="signed-phar" depends="phar" description="Create signed PHAR archive of PHPUnit and all its dependencies">
+    <target name="signed-phar" depends="phar"
+            description="Create signed PHAR archive of PHPUnit and all its dependencies">
         <exec executable="gpg" failonerror="true">
             <arg value="--armor"/>
             <arg value="--detach-sign"/>
@@ -94,13 +96,15 @@
         </exec>
     </target>
 
-    <target name="phar" depends="-phar-determine-version,-phar-prepare" description="Create PHAR archive of PHPUnit and all its dependencies">
+    <target name="phar" depends="-phar-determine-version,-phar-prepare"
+            description="Create PHAR archive of PHPUnit and all its dependencies">
         <antcall target="-phar-build">
             <param name="type" value="release"/>
         </antcall>
     </target>
 
-    <target name="phar-nightly" depends="-phar-prepare" description="Create PHAR archive of PHPUnit and all its dependencies (nightly)">
+    <target name="phar-nightly" depends="-phar-prepare"
+            description="Create PHAR archive of PHPUnit and all its dependencies (nightly)">
         <antcall target="-phar-build">
             <param name="type" value="nightly"/>
         </antcall>

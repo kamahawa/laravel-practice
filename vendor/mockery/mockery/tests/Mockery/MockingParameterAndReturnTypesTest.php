@@ -19,7 +19,7 @@
  * @license    http://github.com/padraic/mockery/blob/master/LICENSE New BSD License
  */
 
-declare(strict_types=1); // Use strict types to ensure exact types are returned or passed
+declare(strict_types = 1); // Use strict types to ensure exact types are returned or passed
 
 namespace test\Mockery;
 
@@ -27,125 +27,126 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class MockingParameterAndReturnTypesTest extends MockeryTestCase
 {
-    public function setup()
-    {
-        $this->container = new \Mockery\Container;
-    }
+	public function setup()
+	{
+		$this->container = new \Mockery\Container;
+	}
 
-    public function teardown()
-    {
-        $this->container->mockery_close();
-    }
+	public function teardown()
+	{
+		$this->container->mockery_close();
+	}
 
-    public function testMockingStringReturnType()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingStringReturnType()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnString");
-        $this->assertSame("", $mock->returnString());
-    }
+		$mock->shouldReceive("returnString");
+		$this->assertSame("", $mock->returnString());
+	}
 
-    public function testMockingIntegerReturnType()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingIntegerReturnType()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnInteger");
-        $this->assertEquals(0, $mock->returnInteger());
-    }
+		$mock->shouldReceive("returnInteger");
+		$this->assertEquals(0, $mock->returnInteger());
+	}
 
-    public function testMockingFloatReturnType()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingFloatReturnType()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnFloat");
-        $this->assertSame(0.0, $mock->returnFloat());
-    }
+		$mock->shouldReceive("returnFloat");
+		$this->assertSame(0.0, $mock->returnFloat());
+	}
 
-    public function testMockingBooleanReturnType()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingBooleanReturnType()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnBoolean");
-        $this->assertSame(false, $mock->returnBoolean());
-    }
+		$mock->shouldReceive("returnBoolean");
+		$this->assertSame(false, $mock->returnBoolean());
+	}
 
-    public function testMockingArrayReturnType()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingArrayReturnType()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnArray");
-        $this->assertSame([], $mock->returnArray());
-    }
+		$mock->shouldReceive("returnArray");
+		$this->assertSame([], $mock->returnArray());
+	}
 
-    public function testMockingGeneratorReturnTyps()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingGeneratorReturnTyps()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnGenerator");
-        $this->assertInstanceOf("\Generator", $mock->returnGenerator());
-    }
+		$mock->shouldReceive("returnGenerator");
+		$this->assertInstanceOf("\Generator", $mock->returnGenerator());
+	}
 
-    public function testMockingCallableReturnType()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingCallableReturnType()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("returnCallable");
-        $this->assertTrue(is_callable($mock->returnCallable()));
-    }
+		$mock->shouldReceive("returnCallable");
+		$this->assertTrue(is_callable($mock->returnCallable()));
+	}
 
-    public function testMockingClassReturnTypes()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingClassReturnTypes()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("withClassReturnType");
-        $this->assertInstanceOf("test\Mockery\TestWithParameterAndReturnType", $mock->withClassReturnType());
-    }
+		$mock->shouldReceive("withClassReturnType");
+		$this->assertInstanceOf("test\Mockery\TestWithParameterAndReturnType", $mock->withClassReturnType());
+	}
 
-    public function testMockingParameterTypes()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
+	public function testMockingParameterTypes()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithParameterAndReturnType");
 
-        $mock->shouldReceive("withScalarParameters");
-        $mock->withScalarParameters(1, 1.0, true, 'string');
-    }
+		$mock->shouldReceive("withScalarParameters");
+		$mock->withScalarParameters(1, 1.0, true, 'string');
+	}
 }
 
 
 abstract class TestWithParameterAndReturnType
 {
-    public function returnString(): string
+	public function returnString(): string
     {
     }
 
-    public function returnInteger(): int
+public
+function returnInteger(): int
     {
-    }
+	}
 
     public function returnFloat(): float
     {
-    }
+	}
 
     public function returnBoolean(): bool
     {
-    }
+	}
 
     public function returnArray(): array
     {
-    }
+	}
 
     public function returnCallable(): callable
     {
-    }
+	}
 
     public function returnGenerator(): \Generator
     {
-    }
+	}
 
     public function withClassReturnType(): TestWithParameterAndReturnType
     {
-    }
+	}
 
     public function withScalarParameters(int $integer, float $float, bool $boolean, string $string)
-    {
-    }
+{
+}
 }

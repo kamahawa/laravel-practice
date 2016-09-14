@@ -6,81 +6,81 @@ use League\Flysystem\AdapterInterface;
 
 abstract class AbstractAdapter implements AdapterInterface
 {
-    /**
-     * @var string path prefix
-     */
-    protected $pathPrefix;
+	/**
+	 * @var string path prefix
+	 */
+	protected $pathPrefix;
 
-    /**
-     * @var string
-     */
-    protected $pathSeparator = '/';
+	/**
+	 * @var string
+	 */
+	protected $pathSeparator = '/';
 
-    /**
-     * Set the path prefix.
-     *
-     * @param string $prefix
-     *
-     * @return self
-     */
-    public function setPathPrefix($prefix)
-    {
-        $is_empty = empty($prefix);
+	/**
+	 * Set the path prefix.
+	 *
+	 * @param string $prefix
+	 *
+	 * @return self
+	 */
+	public function setPathPrefix($prefix)
+	{
+		$is_empty = empty($prefix);
 
-        if ( ! $is_empty) {
-            $prefix = rtrim($prefix, $this->pathSeparator) . $this->pathSeparator;
-        }
+		if (!$is_empty) {
+			$prefix = rtrim($prefix, $this->pathSeparator) . $this->pathSeparator;
+		}
 
-        $this->pathPrefix = $is_empty ? null : $prefix;
-    }
+		$this->pathPrefix = $is_empty ? null : $prefix;
+	}
 
-    /**
-     * Get the path prefix.
-     *
-     * @return string path prefix
-     */
-    public function getPathPrefix()
-    {
-        return $this->pathPrefix;
-    }
+	/**
+	 * Get the path prefix.
+	 *
+	 * @return string path prefix
+	 */
+	public function getPathPrefix()
+	{
+		return $this->pathPrefix;
+	}
 
-    /**
-     * Prefix a path.
-     *
-     * @param string $path
-     *
-     * @return string prefixed path
-     */
-    public function applyPathPrefix($path)
-    {
-        $path = ltrim($path, '\\/');
+	/**
+	 * Prefix a path.
+	 *
+	 * @param string $path
+	 *
+	 * @return string prefixed path
+	 */
+	public function applyPathPrefix($path)
+	{
+		$path = ltrim($path, '\\/');
 
-        if (strlen($path) === 0) {
-            return $this->getPathPrefix() ?: '';
-        }
+		if (strlen($path) === 0) {
+			return $this->getPathPrefix() ?: '';
+		}
 
-        if ($prefix = $this->getPathPrefix()) {
-            $path = $prefix . $path;
-        }
+		if ($prefix = $this->getPathPrefix()) {
+			$path = $prefix . $path;
+		}
 
-        return $path;
-    }
+		return $path;
+	}
 
-    /**
-     * Remove a path prefix.
-     *
-     * @param string $path
-     *
-     * @return string path without the prefix
-     */
-    public function removePathPrefix($path)
-    {
-        $pathPrefix = $this->getPathPrefix();
+	/**
+	 * Remove a path prefix.
+	 *
+	 * @param string $path
+	 *
+	 * @return string path without the prefix
+	 */
+	public function removePathPrefix($path)
+	{
+		$pathPrefix = $this->getPathPrefix();
 
-        if ($pathPrefix === null) {
-            return $path;
-        }
+		if ($pathPrefix === null) {
+			return $path;
+		}
 
-        return substr($path, strlen($pathPrefix));
-    }
+		return substr($path, strlen($pathPrefix));
+	}
 }

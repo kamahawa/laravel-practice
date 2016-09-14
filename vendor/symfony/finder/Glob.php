@@ -35,70 +35,70 @@ namespace Symfony\Component\Finder;
  */
 class Glob
 {
-    /**
-     * Returns a regexp which is the equivalent of the glob pattern.
-     *
-     * @param string $glob                The glob pattern
-     * @param bool   $strictLeadingDot
-     * @param bool   $strictWildcardSlash
-     * @param string $delimiter           Optional delimiter
-     *
-     * @return string regex The regexp
-     */
-    public static function toRegex($glob, $strictLeadingDot = true, $strictWildcardSlash = true, $delimiter = '#')
-    {
-        $firstByte = true;
-        $escaping = false;
-        $inCurlies = 0;
-        $regex = '';
-        $sizeGlob = strlen($glob);
-        for ($i = 0; $i < $sizeGlob; ++$i) {
-            $car = $glob[$i];
-            if ($firstByte) {
-                if ($strictLeadingDot && '.' !== $car) {
-                    $regex .= '(?=[^\.])';
-                }
+	/**
+	 * Returns a regexp which is the equivalent of the glob pattern.
+	 *
+	 * @param string $glob The glob pattern
+	 * @param bool $strictLeadingDot
+	 * @param bool $strictWildcardSlash
+	 * @param string $delimiter Optional delimiter
+	 *
+	 * @return string regex The regexp
+	 */
+	public static function toRegex($glob, $strictLeadingDot = true, $strictWildcardSlash = true, $delimiter = '#')
+	{
+		$firstByte = true;
+		$escaping = false;
+		$inCurlies = 0;
+		$regex = '';
+		$sizeGlob = strlen($glob);
+		for ($i = 0; $i < $sizeGlob; ++$i) {
+			$car = $glob[$i];
+			if ($firstByte) {
+				if ($strictLeadingDot && '.' !== $car) {
+					$regex .= '(?=[^\.])';
+				}
 
-                $firstByte = false;
-            }
+				$firstByte = false;
+			}
 
-            if ('/' === $car) {
-                $firstByte = true;
-            }
+			if ('/' === $car) {
+				$firstByte = true;
+			}
 
-            if ($delimiter === $car || '.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {
-                $regex .= "\\$car";
-            } elseif ('*' === $car) {
-                $regex .= $escaping ? '\\*' : ($strictWildcardSlash ? '[^/]*' : '.*');
-            } elseif ('?' === $car) {
-                $regex .= $escaping ? '\\?' : ($strictWildcardSlash ? '[^/]' : '.');
-            } elseif ('{' === $car) {
-                $regex .= $escaping ? '\\{' : '(';
-                if (!$escaping) {
-                    ++$inCurlies;
-                }
-            } elseif ('}' === $car && $inCurlies) {
-                $regex .= $escaping ? '}' : ')';
-                if (!$escaping) {
-                    --$inCurlies;
-                }
-            } elseif (',' === $car && $inCurlies) {
-                $regex .= $escaping ? ',' : '|';
-            } elseif ('\\' === $car) {
-                if ($escaping) {
-                    $regex .= '\\\\';
-                    $escaping = false;
-                } else {
-                    $escaping = true;
-                }
+			if ($delimiter === $car || '.' === $car || '(' === $car || ')' === $car || '|' === $car || '+' === $car || '^' === $car || '$' === $car) {
+				$regex .= "\\$car";
+			} elseif ('*' === $car) {
+				$regex .= $escaping ? '\\*' : ($strictWildcardSlash ? '[^/]*' : '.*');
+			} elseif ('?' === $car) {
+				$regex .= $escaping ? '\\?' : ($strictWildcardSlash ? '[^/]' : '.');
+			} elseif ('{' === $car) {
+				$regex .= $escaping ? '\\{' : '(';
+				if (!$escaping) {
+					++$inCurlies;
+				}
+			} elseif ('}' === $car && $inCurlies) {
+				$regex .= $escaping ? '}' : ')';
+				if (!$escaping) {
+					--$inCurlies;
+				}
+			} elseif (',' === $car && $inCurlies) {
+				$regex .= $escaping ? ',' : '|';
+			} elseif ('\\' === $car) {
+				if ($escaping) {
+					$regex .= '\\\\';
+					$escaping = false;
+				} else {
+					$escaping = true;
+				}
 
-                continue;
-            } else {
-                $regex .= $car;
-            }
-            $escaping = false;
-        }
+				continue;
+			} else {
+				$regex .= $car;
+			}
+			$escaping = false;
+		}
 
-        return $delimiter.'^'.$regex.'$'.$delimiter;
-    }
+		return $delimiter . '^' . $regex . '$' . $delimiter;
+	}
 }

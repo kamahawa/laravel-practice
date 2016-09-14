@@ -22,27 +22,27 @@ use Symfony\Component\Yaml\Exception\ParseException;
  */
 class YamlFileLoader extends FileLoader
 {
-    private $yamlParser;
+	private $yamlParser;
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function loadResource($resource)
-    {
-        if (null === $this->yamlParser) {
-            if (!class_exists('Symfony\Component\Yaml\Parser')) {
-                throw new \LogicException('Loading translations from the YAML format requires the Symfony Yaml component.');
-            }
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function loadResource($resource)
+	{
+		if (null === $this->yamlParser) {
+			if (!class_exists('Symfony\Component\Yaml\Parser')) {
+				throw new \LogicException('Loading translations from the YAML format requires the Symfony Yaml component.');
+			}
 
-            $this->yamlParser = new YamlParser();
-        }
+			$this->yamlParser = new YamlParser();
+		}
 
-        try {
-            $messages = $this->yamlParser->parse(file_get_contents($resource));
-        } catch (ParseException $e) {
-            throw new InvalidResourceException(sprintf('Error parsing YAML, invalid file "%s"', $resource), 0, $e);
-        }
+		try {
+			$messages = $this->yamlParser->parse(file_get_contents($resource));
+		} catch (ParseException $e) {
+			throw new InvalidResourceException(sprintf('Error parsing YAML, invalid file "%s"', $resource), 0, $e);
+		}
 
-        return $messages;
-    }
+		return $messages;
+	}
 }

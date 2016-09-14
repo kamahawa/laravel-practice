@@ -16,68 +16,68 @@ use Symfony\Component\Translation\Dumper\FileDumper;
 
 class FileDumperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testDump()
-    {
-        $tempDir = sys_get_temp_dir();
+	public function testDump()
+	{
+		$tempDir = sys_get_temp_dir();
 
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'));
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'));
 
-        $dumper = new ConcreteFileDumper();
-        $dumper->dump($catalogue, array('path' => $tempDir));
+		$dumper = new ConcreteFileDumper();
+		$dumper->dump($catalogue, array('path' => $tempDir));
 
-        $this->assertTrue(file_exists($tempDir.'/messages.en.concrete'));
-    }
+		$this->assertTrue(file_exists($tempDir . '/messages.en.concrete'));
+	}
 
-    public function testDumpBackupsFileIfExisting()
-    {
-        $tempDir = sys_get_temp_dir();
-        $file = $tempDir.'/messages.en.concrete';
-        $backupFile = $file.'~';
+	public function testDumpBackupsFileIfExisting()
+	{
+		$tempDir = sys_get_temp_dir();
+		$file = $tempDir . '/messages.en.concrete';
+		$backupFile = $file . '~';
 
-        @touch($file);
+		@touch($file);
 
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'));
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'));
 
-        $dumper = new ConcreteFileDumper();
-        $dumper->dump($catalogue, array('path' => $tempDir));
+		$dumper = new ConcreteFileDumper();
+		$dumper->dump($catalogue, array('path' => $tempDir));
 
-        $this->assertTrue(file_exists($backupFile));
+		$this->assertTrue(file_exists($backupFile));
 
-        @unlink($file);
-        @unlink($backupFile);
-    }
+		@unlink($file);
+		@unlink($backupFile);
+	}
 
-    public function testDumpCreatesNestedDirectoriesAndFile()
-    {
-        $tempDir = sys_get_temp_dir();
-        $translationsDir = $tempDir.'/test/translations';
-        $file = $translationsDir.'/messages.en.concrete';
+	public function testDumpCreatesNestedDirectoriesAndFile()
+	{
+		$tempDir = sys_get_temp_dir();
+		$translationsDir = $tempDir . '/test/translations';
+		$file = $translationsDir . '/messages.en.concrete';
 
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'));
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'));
 
-        $dumper = new ConcreteFileDumper();
-        $dumper->setRelativePathTemplate('test/translations/%domain%.%locale%.%extension%');
-        $dumper->dump($catalogue, array('path' => $tempDir));
+		$dumper = new ConcreteFileDumper();
+		$dumper->setRelativePathTemplate('test/translations/%domain%.%locale%.%extension%');
+		$dumper->dump($catalogue, array('path' => $tempDir));
 
-        $this->assertTrue(file_exists($file));
+		$this->assertTrue(file_exists($file));
 
-        @unlink($file);
-        @rmdir($translationsDir);
-    }
+		@unlink($file);
+		@rmdir($translationsDir);
+	}
 }
 
 class ConcreteFileDumper extends FileDumper
 {
-    public function formatCatalogue(MessageCatalogue $messages, $domain, array $options = array())
-    {
-        return '';
-    }
+	public function formatCatalogue(MessageCatalogue $messages, $domain, array $options = array())
+	{
+		return '';
+	}
 
-    protected function getExtension()
-    {
-        return 'concrete';
-    }
+	protected function getExtension()
+	{
+		return 'concrete';
+	}
 }

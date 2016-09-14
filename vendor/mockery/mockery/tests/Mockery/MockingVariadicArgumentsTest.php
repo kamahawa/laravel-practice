@@ -26,31 +26,31 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 class MockingVariadicArgumentsTest extends MockeryTestCase
 {
 
-    public function setup()
-    {
-        $this->container = new \Mockery\Container;
-    }
+	public function setup()
+	{
+		$this->container = new \Mockery\Container;
+	}
 
-    public function teardown()
-    {
-        $this->container->mockery_close();
-    }
+	public function teardown()
+	{
+		$this->container->mockery_close();
+	}
 
-    /** @test */
-    public function shouldAllowMockingVariadicArguments()
-    {
-        $mock = $this->container->mock("test\Mockery\TestWithVariadicArguments");
+	/** @test */
+	public function shouldAllowMockingVariadicArguments()
+	{
+		$mock = $this->container->mock("test\Mockery\TestWithVariadicArguments");
 
-        $mock->shouldReceive("foo")->andReturn("notbar");
-        $this->assertEquals("notbar", $mock->foo());
-    }
+		$mock->shouldReceive("foo")->andReturn("notbar");
+		$this->assertEquals("notbar", $mock->foo());
+	}
 }
 
 
 abstract class TestWithVariadicArguments
 {
-    public function foo(...$bar)
-    {
-        return $bar;
-    }
+	public function foo(...$bar)
+	{
+		return $bar;
+	}
 }

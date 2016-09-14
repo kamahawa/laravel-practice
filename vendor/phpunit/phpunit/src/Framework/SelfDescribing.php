@@ -15,10 +15,10 @@
  */
 interface PHPUnit_Framework_SelfDescribing
 {
-    /**
-     * Returns a string representation of the object.
-     *
-     * @return string
-     */
-    public function toString();
+	/**
+	 * Returns a string representation of the object.
+	 *
+	 * @return string
+	 */
+	public function toString();
 }

@@ -27,162 +27,162 @@ namespace Symfony\Component\EventDispatcher;
  */
 class EventDispatcher implements EventDispatcherInterface
 {
-    private $listeners = array();
-    private $sorted = array();
+	private $listeners = array();
+	private $sorted = array();
 
-    /**
-     * {@inheritdoc}
-     */
-    public function dispatch($eventName, Event $event = null)
-    {
-        if (null === $event) {
-            $event = new Event();
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function dispatch($eventName, Event $event = null)
+	{
+		if (null === $event) {
+			$event = new Event();
+		}
 
-        if ($listeners = $this->getListeners($eventName)) {
-            $this->doDispatch($listeners, $eventName, $event);
-        }
+		if ($listeners = $this->getListeners($eventName)) {
+			$this->doDispatch($listeners, $eventName, $event);
+		}
 
-        return $event;
-    }
+		return $event;
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getListeners($eventName = null)
-    {
-        if (null !== $eventName) {
-            if (!isset($this->listeners[$eventName])) {
-                return array();
-            }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getListeners($eventName = null)
+	{
+		if (null !== $eventName) {
+			if (!isset($this->listeners[$eventName])) {
+				return array();
+			}
 
-            if (!isset($this->sorted[$eventName])) {
-                $this->sortListeners($eventName);
-            }
+			if (!isset($this->sorted[$eventName])) {
+				$this->sortListeners($eventName);
+			}
 
-            return $this->sorted[$eventName];
-        }
+			return $this->sorted[$eventName];
+		}
 
-        foreach ($this->listeners as $eventName => $eventListeners) {
-            if (!isset($this->sorted[$eventName])) {
-                $this->sortListeners($eventName);
-            }
-        }
+		foreach ($this->listeners as $eventName => $eventListeners) {
+			if (!isset($this->sorted[$eventName])) {
+				$this->sortListeners($eventName);
+			}
+		}
 
-        return array_filter($this->sorted);
-    }
+		return array_filter($this->sorted);
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getListenerPriority($eventName, $listener)
-    {
-        if (!isset($this->listeners[$eventName])) {
-            return;
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getListenerPriority($eventName, $listener)
+	{
+		if (!isset($this->listeners[$eventName])) {
+			return;
+		}
 
-        foreach ($this->listeners[$eventName] as $priority => $listeners) {
-            if (false !== ($key = array_search($listener, $listeners, true))) {
-                return $priority;
-            }
-        }
-    }
+		foreach ($this->listeners[$eventName] as $priority => $listeners) {
+			if (false !== ($key = array_search($listener, $listeners, true))) {
+				return $priority;
+			}
+		}
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function hasListeners($eventName = null)
-    {
-        return (bool) count($this->getListeners($eventName));
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function hasListeners($eventName = null)
+	{
+		return (bool)count($this->getListeners($eventName));
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addListener($eventName, $listener, $priority = 0)
-    {
-        $this->listeners[$eventName][$priority][] = $listener;
-        unset($this->sorted[$eventName]);
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function addListener($eventName, $listener, $priority = 0)
+	{
+		$this->listeners[$eventName][$priority][] = $listener;
+		unset($this->sorted[$eventName]);
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function removeListener($eventName, $listener)
-    {
-        if (!isset($this->listeners[$eventName])) {
-            return;
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function removeListener($eventName, $listener)
+	{
+		if (!isset($this->listeners[$eventName])) {
+			return;
+		}
 
-        foreach ($this->listeners[$eventName] as $priority => $listeners) {
-            if (false !== ($key = array_search($listener, $listeners, true))) {
-                unset($this->listeners[$eventName][$priority][$key], $this->sorted[$eventName]);
-            }
-        }
-    }
+		foreach ($this->listeners[$eventName] as $priority => $listeners) {
+			if (false !== ($key = array_search($listener, $listeners, true))) {
+				unset($this->listeners[$eventName][$priority][$key], $this->sorted[$eventName]);
+			}
+		}
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addSubscriber(EventSubscriberInterface $subscriber)
-    {
-        foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
-            if (is_string($params)) {
-                $this->addListener($eventName, array($subscriber, $params));
-            } elseif (is_string($params[0])) {
-                $this->addListener($eventName, array($subscriber, $params[0]), isset($params[1]) ? $params[1] : 0);
-            } else {
-                foreach ($params as $listener) {
-                    $this->addListener($eventName, array($subscriber, $listener[0]), isset($listener[1]) ? $listener[1] : 0);
-                }
-            }
-        }
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function addSubscriber(EventSubscriberInterface $subscriber)
+	{
+		foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
+			if (is_string($params)) {
+				$this->addListener($eventName, array($subscriber, $params));
+			} elseif (is_string($params[0])) {
+				$this->addListener($eventName, array($subscriber, $params[0]), isset($params[1]) ? $params[1] : 0);
+			} else {
+				foreach ($params as $listener) {
+					$this->addListener($eventName, array($subscriber, $listener[0]), isset($listener[1]) ? $listener[1] : 0);
+				}
+			}
+		}
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    public function removeSubscriber(EventSubscriberInterface $subscriber)
-    {
-        foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
-            if (is_array($params) && is_array($params[0])) {
-                foreach ($params as $listener) {
-                    $this->removeListener($eventName, array($subscriber, $listener[0]));
-                }
-            } else {
-                $this->removeListener($eventName, array($subscriber, is_string($params) ? $params : $params[0]));
-            }
-        }
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function removeSubscriber(EventSubscriberInterface $subscriber)
+	{
+		foreach ($subscriber->getSubscribedEvents() as $eventName => $params) {
+			if (is_array($params) && is_array($params[0])) {
+				foreach ($params as $listener) {
+					$this->removeListener($eventName, array($subscriber, $listener[0]));
+				}
+			} else {
+				$this->removeListener($eventName, array($subscriber, is_string($params) ? $params : $params[0]));
+			}
+		}
+	}
 
-    /**
-     * Triggers the listeners of an event.
-     *
-     * This method can be overridden to add functionality that is executed
-     * for each listener.
-     *
-     * @param callable[] $listeners The event listeners
-     * @param string     $eventName The name of the event to dispatch
-     * @param Event      $event     The event object to pass to the event handlers/listeners
-     */
-    protected function doDispatch($listeners, $eventName, Event $event)
-    {
-        foreach ($listeners as $listener) {
-            if ($event->isPropagationStopped()) {
-                break;
-            }
-            call_user_func($listener, $event, $eventName, $this);
-        }
-    }
+	/**
+	 * Triggers the listeners of an event.
+	 *
+	 * This method can be overridden to add functionality that is executed
+	 * for each listener.
+	 *
+	 * @param callable[] $listeners The event listeners
+	 * @param string $eventName The name of the event to dispatch
+	 * @param Event $event The event object to pass to the event handlers/listeners
+	 */
+	protected function doDispatch($listeners, $eventName, Event $event)
+	{
+		foreach ($listeners as $listener) {
+			if ($event->isPropagationStopped()) {
+				break;
+			}
+			call_user_func($listener, $event, $eventName, $this);
+		}
+	}
 
-    /**
-     * Sorts the internal list of listeners for the given event by priority.
-     *
-     * @param string $eventName The name of the event
-     */
-    private function sortListeners($eventName)
-    {
-        krsort($this->listeners[$eventName]);
-        $this->sorted[$eventName] = call_user_func_array('array_merge', $this->listeners[$eventName]);
-    }
+	/**
+	 * Sorts the internal list of listeners for the given event by priority.
+	 *
+	 * @param string $eventName The name of the event
+	 */
+	private function sortListeners($eventName)
+	{
+		krsort($this->listeners[$eventName]);
+		$this->sorted[$eventName] = call_user_func_array('array_merge', $this->listeners[$eventName]);
+	}
 }

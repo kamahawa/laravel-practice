@@ -46,7 +46,7 @@ class Morris.Grid extends Morris.EventEmitter
         left = @data[@hitTest(Math.min(x, @selectFrom))]._x
         right = @data[@hitTest(Math.max(x, @selectFrom))]._x
         width = right - left
-        @selectionRect.attr({ x: left, width: width })
+        @selectionRect.attr({x: left, width: width})
       else
         @fire 'hovermove', x, evt.pageY - offset.top
 
@@ -67,9 +67,9 @@ class Morris.Grid extends Morris.EventEmitter
 
     if @options.rangeSelect
       @selectionRect = @raphael.rect(0, 0, 0, @el.innerHeight())
-        .attr({ fill: @options.rangeSelectColor, stroke: false })
-        .toBack()
-        .hide()
+      .attr({fill: @options.rangeSelectColor, stroke: false})
+      .toBack()
+      .hide()
 
       @el.bind 'mousedown', (evt) =>
         offset = @el.offset()
@@ -188,7 +188,8 @@ class Morris.Grid extends Morris.EventEmitter
       ret
 
     if @options.parseTime
-      @data = @data.sort (a, b) -> (a.x > b.x) - (b.x > a.x)
+      @data = @data.sort (a, b) ->
+        (a.x > b.x) - (b.x > a.x)
 
     # calculate horizontal range of the graph
     @xmin = @data[0].x
@@ -216,7 +217,7 @@ class Morris.Grid extends Morris.EventEmitter
 
     if @options.axes in [true, 'both', 'y'] or @options.grid is true
       if (@options.ymax == @gridDefaults.ymax and
-          @options.ymin == @gridDefaults.ymin)
+        @options.ymin == @gridDefaults.ymin)
         # calculate 'magic' grid placement
         @grid = @autoGridLines(@ymin, @ymax, @options.numLines)
         @ymin = Math.min(@ymin, @grid[0])
@@ -299,7 +300,8 @@ class Morris.Grid extends Morris.EventEmitter
 
   # Quick translation helpers
   #
-  transY: (y) -> @bottom - (y - @ymin) * @dy
+  transY: (y) ->
+    @bottom - (y - @ymin) * @dy
   transX: (x) ->
     if @data.length == 1
       (@left + @right) / 2
@@ -322,17 +324,18 @@ class Morris.Grid extends Morris.EventEmitter
   #
   measureText: (text, angle = 0) ->
     tt = @raphael.text(100, 100, text)
-      .attr('font-size', @options.gridTextSize)
-      .attr('font-family', @options.gridTextFamily)
-      .attr('font-weight', @options.gridTextWeight)
-      .rotate(angle)
+    .attr('font-size', @options.gridTextSize)
+    .attr('font-family', @options.gridTextFamily)
+    .attr('font-weight', @options.gridTextWeight)
+    .rotate(angle)
     ret = tt.getBBox()
     tt.remove()
     ret
 
   # @private
   #
-  yAxisFormat: (label) -> @yLabelFormat(label)
+  yAxisFormat: (label) ->
+    @yLabelFormat(label)
 
   # @private
   #
@@ -368,33 +371,33 @@ class Morris.Grid extends Morris.EventEmitter
 
   drawGoal: (goal, color) ->
     @raphael.path("M#{@left},#{@transY(goal)}H#{@right}")
-      .attr('stroke', color)
-      .attr('stroke-width', @options.goalStrokeWidth)
+    .attr('stroke', color)
+    .attr('stroke-width', @options.goalStrokeWidth)
 
   drawEvent: (event, color) ->
     @raphael.path("M#{@transX(event)},#{@bottom}V#{@top}")
-      .attr('stroke', color)
-      .attr('stroke-width', @options.eventStrokeWidth)
+    .attr('stroke', color)
+    .attr('stroke-width', @options.eventStrokeWidth)
 
   drawYAxisLabel: (xPos, yPos, text) ->
     @raphael.text(xPos, yPos, text)
-      .attr('font-size', @options.gridTextSize)
-      .attr('font-family', @options.gridTextFamily)
-      .attr('font-weight', @options.gridTextWeight)
-      .attr('fill', @options.gridTextColor)
-      .attr('text-anchor', 'end')
+    .attr('font-size', @options.gridTextSize)
+    .attr('font-family', @options.gridTextFamily)
+    .attr('font-weight', @options.gridTextWeight)
+    .attr('fill', @options.gridTextColor)
+    .attr('text-anchor', 'end')
 
   drawGridLine: (path) ->
     @raphael.path(path)
-      .attr('stroke', @options.gridLineColor)
-      .attr('stroke-width', @options.gridStrokeWidth)
+    .attr('stroke', @options.gridLineColor)
+    .attr('stroke-width', @options.gridStrokeWidth)
 
   # Range selection
   #
   startRange: (x) ->
     @hover.hide()
     @selectFrom = x
-    @selectionRect.attr({ x: x, width: 0 }).show()
+    @selectionRect.attr({x: x, width: 0}).show()
 
   endRange: (x) ->
     if @selectFrom

@@ -21,50 +21,50 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class ProfilerListenerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test a master and sub request with an exception and `onlyException` profiler option enabled.
-     */
-    public function testKernelTerminate()
-    {
-        $profile = $this->getMockBuilder('Symfony\Component\HttpKernel\Profiler\Profile')
-            ->disableOriginalConstructor()
-            ->getMock();
+	/**
+	 * Test a master and sub request with an exception and `onlyException` profiler option enabled.
+	 */
+	public function testKernelTerminate()
+	{
+		$profile = $this->getMockBuilder('Symfony\Component\HttpKernel\Profiler\Profile')
+			->disableOriginalConstructor()
+			->getMock();
 
-        $profiler = $this->getMockBuilder('Symfony\Component\HttpKernel\Profiler\Profiler')
-            ->disableOriginalConstructor()
-            ->getMock();
+		$profiler = $this->getMockBuilder('Symfony\Component\HttpKernel\Profiler\Profiler')
+			->disableOriginalConstructor()
+			->getMock();
 
-        $profiler->expects($this->once())
-            ->method('collect')
-            ->will($this->returnValue($profile));
+		$profiler->expects($this->once())
+			->method('collect')
+			->will($this->returnValue($profile));
 
-        $kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
+		$kernel = $this->getMock('Symfony\Component\HttpKernel\HttpKernelInterface');
 
-        $masterRequest = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
-            ->disableOriginalConstructor()
-            ->getMock();
+		$masterRequest = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
+			->disableOriginalConstructor()
+			->getMock();
 
-        $subRequest = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
-            ->disableOriginalConstructor()
-            ->getMock();
+		$subRequest = $this->getMockBuilder('Symfony\Component\HttpFoundation\Request')
+			->disableOriginalConstructor()
+			->getMock();
 
-        $response = $this->getMockBuilder('Symfony\Component\HttpFoundation\Response')
-            ->disableOriginalConstructor()
-            ->getMock();
+		$response = $this->getMockBuilder('Symfony\Component\HttpFoundation\Response')
+			->disableOriginalConstructor()
+			->getMock();
 
-        $requestStack = new RequestStack();
-        $requestStack->push($masterRequest);
+		$requestStack = new RequestStack();
+		$requestStack->push($masterRequest);
 
-        $onlyException = true;
-        $listener = new ProfilerListener($profiler, $requestStack, null, $onlyException);
+		$onlyException = true;
+		$listener = new ProfilerListener($profiler, $requestStack, null, $onlyException);
 
-        // master request
-        $listener->onKernelResponse(new FilterResponseEvent($kernel, $masterRequest, Kernel::MASTER_REQUEST, $response));
+		// master request
+		$listener->onKernelResponse(new FilterResponseEvent($kernel, $masterRequest, Kernel::MASTER_REQUEST, $response));
 
-        // sub request
-        $listener->onKernelException(new GetResponseForExceptionEvent($kernel, $subRequest, Kernel::SUB_REQUEST, new HttpException(404)));
-        $listener->onKernelResponse(new FilterResponseEvent($kernel, $subRequest, Kernel::SUB_REQUEST, $response));
+		// sub request
+		$listener->onKernelException(new GetResponseForExceptionEvent($kernel, $subRequest, Kernel::SUB_REQUEST, new HttpException(404)));
+		$listener->onKernelResponse(new FilterResponseEvent($kernel, $subRequest, Kernel::SUB_REQUEST, $response));
 
-        $listener->onKernelTerminate(new PostResponseEvent($kernel, $masterRequest, $response));
-    }
+		$listener->onKernelTerminate(new PostResponseEvent($kernel, $masterRequest, $response));
+	}
 }

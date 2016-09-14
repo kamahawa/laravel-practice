@@ -2,10 +2,10 @@
 
 class Swift_StreamCollector
 {
-    public $content = '';
+	public $content = '';
 
-    public function __invoke($arg)
-    {
-        $this->content .= $arg;
-    }
+	public function __invoke($arg)
+	{
+		$this->content .= $arg;
+	}
 }

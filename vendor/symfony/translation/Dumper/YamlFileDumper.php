@@ -22,33 +22,33 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlFileDumper extends FileDumper
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function formatCatalogue(MessageCatalogue $messages, $domain, array $options = array())
-    {
-        if (!class_exists('Symfony\Component\Yaml\Yaml')) {
-            throw new \LogicException('Dumping translations in the YAML format requires the Symfony Yaml component.');
-        }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function formatCatalogue(MessageCatalogue $messages, $domain, array $options = array())
+	{
+		if (!class_exists('Symfony\Component\Yaml\Yaml')) {
+			throw new \LogicException('Dumping translations in the YAML format requires the Symfony Yaml component.');
+		}
 
-        $data = $messages->all($domain);
+		$data = $messages->all($domain);
 
-        if (isset($options['as_tree']) && $options['as_tree']) {
-            $data = ArrayConverter::expandToTree($data);
-        }
+		if (isset($options['as_tree']) && $options['as_tree']) {
+			$data = ArrayConverter::expandToTree($data);
+		}
 
-        if (isset($options['inline']) && ($inline = (int) $options['inline']) > 0) {
-            return Yaml::dump($data, $inline);
-        }
+		if (isset($options['inline']) && ($inline = (int)$options['inline']) > 0) {
+			return Yaml::dump($data, $inline);
+		}
 
-        return Yaml::dump($data);
-    }
+		return Yaml::dump($data);
+	}
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getExtension()
-    {
-        return 'yml';
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function getExtension()
+	{
+		return 'yml';
+	}
 }

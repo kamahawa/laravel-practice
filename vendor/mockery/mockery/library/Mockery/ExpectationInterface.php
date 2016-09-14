@@ -22,18 +22,18 @@ namespace Mockery;
 
 interface ExpectationInterface
 {
-    /**
-     * @return int
-     */
-    public function getOrderNumber();
+	/**
+	 * @return int
+	 */
+	public function getOrderNumber();
 
-    /**
-     * @return MockInterface
-     */
-    public function getMock();
+	/**
+	 * @return MockInterface
+	 */
+	public function getMock();
 
-    /**
-     * @return self
-     */
-    public function andReturn();
+	/**
+	 * @return self
+	 */
+	public function andReturn();
 }

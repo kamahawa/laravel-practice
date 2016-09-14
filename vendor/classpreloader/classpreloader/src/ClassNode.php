@@ -19,38 +19,38 @@ namespace ClassPreloader;
  */
 class ClassNode
 {
-    /**
-     * The next node pointer.
-     *
-     * @var \ClassPreloader\ClassNode|null
-     */
-    public $next;
+	/**
+	 * The next node pointer.
+	 *
+	 * @var \ClassPreloader\ClassNode|null
+	 */
+	public $next;
 
-    /**
-     * The previous node pointer.
-     *
-     * @var \ClassPreloader\ClassNode|null
-     */
-    public $prev;
+	/**
+	 * The previous node pointer.
+	 *
+	 * @var \ClassPreloader\ClassNode|null
+	 */
+	public $prev;
 
-    /**
-     * The value of the class node.
-     *
-     * @var mixed
-     */
-    public $value;
+	/**
+	 * The value of the class node.
+	 *
+	 * @var mixed
+	 */
+	public $value;
 
-    /**
-     * Create a new class node instance.
-     *
-     * @param mixed                          $value
-     * @param \ClassPreloader\ClassNode|null $prev
-     *
-     * @return void
-     */
-    public function __construct($value = null, $prev = null)
-    {
-        $this->value = $value;
-        $this->prev = $prev;
-    }
+	/**
+	 * Create a new class node instance.
+	 *
+	 * @param mixed $value
+	 * @param \ClassPreloader\ClassNode|null $prev
+	 *
+	 * @return void
+	 */
+	public function __construct($value = null, $prev = null)
+	{
+		$this->value = $value;
+		$this->prev = $prev;
+	}
 }

@@ -16,11 +16,11 @@ use phpDocumentor\Reflection\DocBlock\Tags\Formatter;
 
 interface Tag
 {
-    public function getName();
+	public function getName();
 
-    public static function create($body);
+	public static function create($body);
 
-    public function render(Formatter $formatter = null);
+	public function render(Formatter $formatter = null);
 
-    public function __toString();
+	public function __toString();
 }

@@ -21,13 +21,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class AjaxDataCollector extends DataCollector
 {
-    public function collect(Request $request, Response $response, \Exception $exception = null)
-    {
-        // all collecting is done client side
-    }
+	public function collect(Request $request, Response $response, \Exception $exception = null)
+	{
+		// all collecting is done client side
+	}
 
-    public function getName()
-    {
-        return 'ajax';
-    }
+	public function getName()
+	{
+		return 'ajax';
+	}
 }

@@ -20,58 +20,58 @@ use Symfony\Component\HttpKernel\HttpCache\ResponseCacheStrategy;
 
 class ResponseCacheStrategyTest extends \PHPUnit_Framework_TestCase
 {
-    public function testMinimumSharedMaxAgeWins()
-    {
-        $cacheStrategy = new ResponseCacheStrategy();
+	public function testMinimumSharedMaxAgeWins()
+	{
+		$cacheStrategy = new ResponseCacheStrategy();
 
-        $response1 = new Response();
-        $response1->setSharedMaxAge(60);
-        $cacheStrategy->add($response1);
+		$response1 = new Response();
+		$response1->setSharedMaxAge(60);
+		$cacheStrategy->add($response1);
 
-        $response2 = new Response();
-        $response2->setSharedMaxAge(3600);
-        $cacheStrategy->add($response2);
+		$response2 = new Response();
+		$response2->setSharedMaxAge(3600);
+		$cacheStrategy->add($response2);
 
-        $response = new Response();
-        $response->setSharedMaxAge(86400);
-        $cacheStrategy->update($response);
+		$response = new Response();
+		$response->setSharedMaxAge(86400);
+		$cacheStrategy->update($response);
 
-        $this->assertSame('60', $response->headers->getCacheControlDirective('s-maxage'));
-    }
+		$this->assertSame('60', $response->headers->getCacheControlDirective('s-maxage'));
+	}
 
-    public function testSharedMaxAgeNotSetIfNotSetInAnyEmbeddedRequest()
-    {
-        $cacheStrategy = new ResponseCacheStrategy();
+	public function testSharedMaxAgeNotSetIfNotSetInAnyEmbeddedRequest()
+	{
+		$cacheStrategy = new ResponseCacheStrategy();
 
-        $response1 = new Response();
-        $response1->setSharedMaxAge(60);
-        $cacheStrategy->add($response1);
+		$response1 = new Response();
+		$response1->setSharedMaxAge(60);
+		$cacheStrategy->add($response1);
 
-        $response2 = new Response();
-        $cacheStrategy->add($response2);
+		$response2 = new Response();
+		$cacheStrategy->add($response2);
 
-        $response = new Response();
-        $response->setSharedMaxAge(86400);
-        $cacheStrategy->update($response);
+		$response = new Response();
+		$response->setSharedMaxAge(86400);
+		$cacheStrategy->update($response);
 
-        $this->assertFalse($response->headers->hasCacheControlDirective('s-maxage'));
-    }
+		$this->assertFalse($response->headers->hasCacheControlDirective('s-maxage'));
+	}
 
-    public function testSharedMaxAgeNotSetIfNotSetInMasterRequest()
-    {
-        $cacheStrategy = new ResponseCacheStrategy();
+	public function testSharedMaxAgeNotSetIfNotSetInMasterRequest()
+	{
+		$cacheStrategy = new ResponseCacheStrategy();
 
-        $response1 = new Response();
-        $response1->setSharedMaxAge(60);
-        $cacheStrategy->add($response1);
+		$response1 = new Response();
+		$response1->setSharedMaxAge(60);
+		$cacheStrategy->add($response1);
 
-        $response2 = new Response();
-        $response2->setSharedMaxAge(3600);
-        $cacheStrategy->add($response2);
+		$response2 = new Response();
+		$response2->setSharedMaxAge(3600);
+		$cacheStrategy->add($response2);
 
-        $response = new Response();
-        $cacheStrategy->update($response);
+		$response = new Response();
+		$cacheStrategy->update($response);
 
-        $this->assertFalse($response->headers->hasCacheControlDirective('s-maxage'));
-    }
+		$this->assertFalse($response->headers->hasCacheControlDirective('s-maxage'));
+	}
 }

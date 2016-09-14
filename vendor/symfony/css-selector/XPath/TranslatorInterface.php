@@ -25,23 +25,23 @@ use Symfony\Component\CssSelector\Node\SelectorNode;
  */
 interface TranslatorInterface
 {
-    /**
-     * Translates a CSS selector to an XPath expression.
-     *
-     * @param string $cssExpr
-     * @param string $prefix
-     *
-     * @return string
-     */
-    public function cssToXPath($cssExpr, $prefix = 'descendant-or-self::');
+	/**
+	 * Translates a CSS selector to an XPath expression.
+	 *
+	 * @param string $cssExpr
+	 * @param string $prefix
+	 *
+	 * @return string
+	 */
+	public function cssToXPath($cssExpr, $prefix = 'descendant-or-self::');
 
-    /**
-     * Translates a parsed selector node to an XPath expression.
-     *
-     * @param SelectorNode $selector
-     * @param string       $prefix
-     *
-     * @return string
-     */
-    public function selectorToXPath(SelectorNode $selector, $prefix = 'descendant-or-self::');
+	/**
+	 * Translates a parsed selector node to an XPath expression.
+	 *
+	 * @param SelectorNode $selector
+	 * @param string $prefix
+	 *
+	 * @return string
+	 */
+	public function selectorToXPath(SelectorNode $selector, $prefix = 'descendant-or-self::');
 }

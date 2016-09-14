@@ -19,61 +19,61 @@ use JakubOnderka\PhpConsoleHighlighter\Highlighter;
  */
 class ConsoleColorFactory
 {
-    private $colorMode;
+	private $colorMode;
 
-    /**
-     * @param string $colorMode
-     */
-    public function __construct($colorMode)
-    {
-        $this->colorMode = $colorMode;
-    }
+	/**
+	 * @param string $colorMode
+	 */
+	public function __construct($colorMode)
+	{
+		$this->colorMode = $colorMode;
+	}
 
-    /**
-     * Get a `ConsoleColor` instance configured according to the given color
-     * mode.
-     *
-     * @return ConsoleColor
-     */
-    public function getConsoleColor()
-    {
-        if ($this->colorMode === Configuration::COLOR_MODE_AUTO) {
-            return $this->getDefaultConsoleColor();
-        } elseif ($this->colorMode === Configuration::COLOR_MODE_FORCED) {
-            return $this->getForcedConsoleColor();
-        } elseif ($this->colorMode === Configuration::COLOR_MODE_DISABLED) {
-            return $this->getDisabledConsoleColor();
-        }
-    }
+	/**
+	 * Get a `ConsoleColor` instance configured according to the given color
+	 * mode.
+	 *
+	 * @return ConsoleColor
+	 */
+	public function getConsoleColor()
+	{
+		if ($this->colorMode === Configuration::COLOR_MODE_AUTO) {
+			return $this->getDefaultConsoleColor();
+		} elseif ($this->colorMode === Configuration::COLOR_MODE_FORCED) {
+			return $this->getForcedConsoleColor();
+		} elseif ($this->colorMode === Configuration::COLOR_MODE_DISABLED) {
+			return $this->getDisabledConsoleColor();
+		}
+	}
 
-    private function getDefaultConsoleColor()
-    {
-        $color = new ConsoleColor();
-        $color->addTheme(Highlighter::LINE_NUMBER, array('blue'));
+	private function getDefaultConsoleColor()
+	{
+		$color = new ConsoleColor();
+		$color->addTheme(Highlighter::LINE_NUMBER, array('blue'));
 
-        return $color;
-    }
+		return $color;
+	}
 
-    private function getForcedConsoleColor()
-    {
-        $color = $this->getDefaultConsoleColor();
-        $color->setForceStyle(true);
+	private function getForcedConsoleColor()
+	{
+		$color = $this->getDefaultConsoleColor();
+		$color->setForceStyle(true);
 
-        return $color;
-    }
+		return $color;
+	}
 
-    private function getDisabledConsoleColor()
-    {
-        $color = new ConsoleColor();
+	private function getDisabledConsoleColor()
+	{
+		$color = new ConsoleColor();
 
-        $color->addTheme(Highlighter::TOKEN_STRING, array('none'));
-        $color->addTheme(Highlighter::TOKEN_COMMENT, array('none'));
-        $color->addTheme(Highlighter::TOKEN_KEYWORD, array('none'));
-        $color->addTheme(Highlighter::TOKEN_DEFAULT, array('none'));
-        $color->addTheme(Highlighter::TOKEN_HTML, array('none'));
-        $color->addTheme(Highlighter::ACTUAL_LINE_MARK, array('none'));
-        $color->addTheme(Highlighter::LINE_NUMBER, array('none'));
+		$color->addTheme(Highlighter::TOKEN_STRING, array('none'));
+		$color->addTheme(Highlighter::TOKEN_COMMENT, array('none'));
+		$color->addTheme(Highlighter::TOKEN_KEYWORD, array('none'));
+		$color->addTheme(Highlighter::TOKEN_DEFAULT, array('none'));
+		$color->addTheme(Highlighter::TOKEN_HTML, array('none'));
+		$color->addTheme(Highlighter::ACTUAL_LINE_MARK, array('none'));
+		$color->addTheme(Highlighter::LINE_NUMBER, array('none'));
 
-        return $color;
-    }
+		return $color;
+	}
 }

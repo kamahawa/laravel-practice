@@ -24,42 +24,42 @@ use PhpParser\Node\Scalar\String_ as StringNode;
  */
 class DirVisitor extends AbstractNodeVisitor
 {
-    /**
-     * Should we skip the file if it contains a dir constant?
-     *
-     * @var bool
-     */
-    protected $skip = false;
+	/**
+	 * Should we skip the file if it contains a dir constant?
+	 *
+	 * @var bool
+	 */
+	protected $skip = false;
 
-    /**
-     * Create a new directory visitor instance.
-     *
-     * @param bool $skip
-     *
-     * @return void
-     */
-    public function __construct($skip = false)
-    {
-        $this->skip = $skip;
-    }
+	/**
+	 * Create a new directory visitor instance.
+	 *
+	 * @param bool $skip
+	 *
+	 * @return void
+	 */
+	public function __construct($skip = false)
+	{
+		$this->skip = $skip;
+	}
 
-    /**
-     * Enter and modify the node.
-     *
-     * @param \PhpParser\Node $node
-     *
-     * @throws \ClassPreloader\Exceptions\DirConstantException
-     *
-     * @return \PhpParser\Node\Scalar\String_|null
-     */
-    public function enterNode(Node $node)
-    {
-        if ($node instanceof DirNode) {
-            if ($this->skip) {
-                throw new DirConstantException();
-            }
+	/**
+	 * Enter and modify the node.
+	 *
+	 * @param \PhpParser\Node $node
+	 *
+	 * @throws \ClassPreloader\Exceptions\DirConstantException
+	 *
+	 * @return \PhpParser\Node\Scalar\String_|null
+	 */
+	public function enterNode(Node $node)
+	{
+		if ($node instanceof DirNode) {
+			if ($this->skip) {
+				throw new DirConstantException();
+			}
 
-            return new StringNode($this->getDir());
-        }
-    }
+			return new StringNode($this->getDir());
+		}
+	}
 }

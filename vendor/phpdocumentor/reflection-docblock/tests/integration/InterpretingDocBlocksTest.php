@@ -22,63 +22,63 @@ use phpDocumentor\Reflection\DocBlock\Tags\See;
  */
 class InterpretingDocBlocksTest extends \PHPUnit_Framework_TestCase
 {
-    public function testInterpretingASimpleDocBlock()
-    {
-        /**
-         * @var DocBlock    $docblock
-         * @var string      $summary
-         * @var Description $description
-         */
-        include(__DIR__ . '/../../examples/01-interpreting-a-simple-docblock.php');
+	public function testInterpretingASimpleDocBlock()
+	{
+		/**
+		 * @var DocBlock $docblock
+		 * @var string $summary
+		 * @var Description $description
+		 */
+		include(__DIR__ . '/../../examples/01-interpreting-a-simple-docblock.php');
 
-        $descriptionText = <<<DESCRIPTION
+		$descriptionText = <<<DESCRIPTION
 This is a Description. A Summary and Description are separated by either
 two subsequent newlines (thus a whiteline in between as can be seen in this
 example), or when the Summary ends with a dot (`.`) and some form of
 whitespace.
 DESCRIPTION;
 
-        $this->assertInstanceOf(DocBlock::class, $docblock);
-        $this->assertSame('This is an example of a summary.', $summary);
-        $this->assertInstanceOf(Description::class, $description);
-        $this->assertSame($descriptionText, $description->render());
-        $this->assertEmpty($docblock->getTags());
-    }
+		$this->assertInstanceOf(DocBlock::class, $docblock);
+		$this->assertSame('This is an example of a summary.', $summary);
+		$this->assertInstanceOf(Description::class, $description);
+		$this->assertSame($descriptionText, $description->render());
+		$this->assertEmpty($docblock->getTags());
+	}
 
-    public function testInterpretingTags()
-    {
-        /**
-         * @var DocBlock $docblock
-         * @var boolean  $hasSeeTag
-         * @var Tag[]    $tags
-         * @var See[]    $seeTags
-         */
-        include(__DIR__ . '/../../examples/02-interpreting-tags.php');
+	public function testInterpretingTags()
+	{
+		/**
+		 * @var DocBlock $docblock
+		 * @var boolean $hasSeeTag
+		 * @var Tag[] $tags
+		 * @var See[] $seeTags
+		 */
+		include(__DIR__ . '/../../examples/02-interpreting-tags.php');
 
-        $this->assertTrue($hasSeeTag);
-        $this->assertCount(1, $tags);
-        $this->assertCount(1, $seeTags);
+		$this->assertTrue($hasSeeTag);
+		$this->assertCount(1, $tags);
+		$this->assertCount(1, $seeTags);
 
-        $this->assertInstanceOf(See::class, $tags[0]);
-        $this->assertInstanceOf(See::class, $seeTags[0]);
+		$this->assertInstanceOf(See::class, $tags[0]);
+		$this->assertInstanceOf(See::class, $seeTags[0]);
 
-        $seeTag = $seeTags[0];
-        $this->assertSame('\\' . StandardTagFactory::class, (string)$seeTag->getReference());
-        $this->assertSame('', (string)$seeTag->getDescription());
-    }
+		$seeTag = $seeTags[0];
+		$this->assertSame('\\' . StandardTagFactory::class, (string)$seeTag->getReference());
+		$this->assertSame('', (string)$seeTag->getDescription());
+	}
 
-    public function testDescriptionsCanEscapeAtSignsAndClosingBraces()
-    {
-        /**
-         * @var string      $docComment
-         * @var DocBlock    $docblock
-         * @var Description $description
-         * @var string      $receivedDocComment
-         * @var string      $foundDescription
-         */
+	public function testDescriptionsCanEscapeAtSignsAndClosingBraces()
+	{
+		/**
+		 * @var string $docComment
+		 * @var DocBlock $docblock
+		 * @var Description $description
+		 * @var string $receivedDocComment
+		 * @var string $foundDescription
+		 */
 
-        include(__DIR__ . '/../../examples/playing-with-descriptions/02-escaping.php');
-        $this->assertSame(<<<'DESCRIPTION'
+		include(__DIR__ . '/../../examples/playing-with-descriptions/02-escaping.php');
+		$this->assertSame(<<<'DESCRIPTION'
 You can escape the @-sign by surrounding it with braces, for example: @. And escape a closing brace within an
 inline tag by adding an opening brace in front of it like this: }.
 
@@ -89,9 +89,8 @@ Here are example texts where you can see how they could be used in a real life s
 
 Do note that an {@internal inline tag that has an opening brace ({) does not break out}.
 DESCRIPTION
-            ,
-            $foundDescription
-        )
-        ;
-    }
+			,
+			$foundDescription
+		);
+	}
 }

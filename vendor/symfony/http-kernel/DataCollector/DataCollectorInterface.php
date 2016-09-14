@@ -21,19 +21,19 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface DataCollectorInterface
 {
-    /**
-     * Collects data for the given Request and Response.
-     *
-     * @param Request    $request   A Request instance
-     * @param Response   $response  A Response instance
-     * @param \Exception $exception An Exception instance
-     */
-    public function collect(Request $request, Response $response, \Exception $exception = null);
+	/**
+	 * Collects data for the given Request and Response.
+	 *
+	 * @param Request $request A Request instance
+	 * @param Response $response A Response instance
+	 * @param \Exception $exception An Exception instance
+	 */
+	public function collect(Request $request, Response $response, \Exception $exception = null);
 
-    /**
-     * Returns the name of the collector.
-     *
-     * @return string The collector name
-     */
-    public function getName();
+	/**
+	 * Returns the name of the collector.
+	 *
+	 * @return string The collector name
+	 */
+	public function getName();
 }

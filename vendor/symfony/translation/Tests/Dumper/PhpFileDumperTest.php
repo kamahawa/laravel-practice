@@ -16,13 +16,13 @@ use Symfony\Component\Translation\Dumper\PhpFileDumper;
 
 class PhpFileDumperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFormatCatalogue()
-    {
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'));
+	public function testFormatCatalogue()
+	{
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'));
 
-        $dumper = new PhpFileDumper();
+		$dumper = new PhpFileDumper();
 
-        $this->assertStringEqualsFile(__DIR__.'/../fixtures/resources.php', $dumper->formatCatalogue($catalogue, 'messages'));
-    }
+		$this->assertStringEqualsFile(__DIR__ . '/../fixtures/resources.php', $dumper->formatCatalogue($catalogue, 'messages'));
+	}
 }

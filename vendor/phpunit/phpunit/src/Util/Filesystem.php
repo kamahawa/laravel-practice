@@ -15,28 +15,28 @@
  */
 class PHPUnit_Util_Filesystem
 {
-    /**
-     * @var array
-     */
-    protected static $buffer = array();
+	/**
+	 * @var array
+	 */
+	protected static $buffer = array();
 
-    /**
-     * Maps class names to source file names:
-     *   - PEAR CS:   Foo_Bar_Baz -> Foo/Bar/Baz.php
-     *   - Namespace: Foo\Bar\Baz -> Foo/Bar/Baz.php
-     *
-     * @param string $className
-     *
-     * @return string
-     *
-     * @since  Method available since Release 3.4.0
-     */
-    public static function classNameToFilename($className)
-    {
-        return str_replace(
-            array('_', '\\'),
-            DIRECTORY_SEPARATOR,
-            $className
-        ) . '.php';
-    }
+	/**
+	 * Maps class names to source file names:
+	 *   - PEAR CS:   Foo_Bar_Baz -> Foo/Bar/Baz.php
+	 *   - Namespace: Foo\Bar\Baz -> Foo/Bar/Baz.php
+	 *
+	 * @param string $className
+	 *
+	 * @return string
+	 *
+	 * @since  Method available since Release 3.4.0
+	 */
+	public static function classNameToFilename($className)
+	{
+		return str_replace(
+			array('_', '\\'),
+			DIRECTORY_SEPARATOR,
+			$className
+		) . '.php';
+	}
 }

@@ -26,62 +26,62 @@ use phpDocumentor\Reflection\Type;
  */
 final class Array_ implements Type
 {
-    /** @var Type */
-    private $valueType;
+	/** @var Type */
+	private $valueType;
 
-    /** @var Type */
-    private $keyType;
+	/** @var Type */
+	private $keyType;
 
-    /**
-     * Initializes this representation of an array with the given Type or Fqsen.
-     *
-     * @param Type $valueType
-     * @param Type $keyType
-     */
-    public function __construct(Type $valueType = null, Type $keyType = null)
-    {
-        if ($keyType === null) {
-            $keyType = new Compound([ new String_(), new Integer() ]);
-        }
-        if ($valueType === null) {
-            $valueType = new Mixed();
-        }
+	/**
+	 * Initializes this representation of an array with the given Type or Fqsen.
+	 *
+	 * @param Type $valueType
+	 * @param Type $keyType
+	 */
+	public function __construct(Type $valueType = null, Type $keyType = null)
+	{
+		if ($keyType === null) {
+			$keyType = new Compound([new String_(), new Integer()]);
+		}
+		if ($valueType === null) {
+			$valueType = new Mixed();
+		}
 
-        $this->valueType = $valueType;
-        $this->keyType = $keyType;
-    }
+		$this->valueType = $valueType;
+		$this->keyType = $keyType;
+	}
 
-    /**
-     * Returns the type for the keys of this array.
-     *
-     * @return Type
-     */
-    public function getKeyType()
-    {
-        return $this->keyType;
-    }
+	/**
+	 * Returns the type for the keys of this array.
+	 *
+	 * @return Type
+	 */
+	public function getKeyType()
+	{
+		return $this->keyType;
+	}
 
-    /**
-     * Returns the value for the keys of this array.
-     *
-     * @return Type
-     */
-    public function getValueType()
-    {
-        return $this->valueType;
-    }
+	/**
+	 * Returns the value for the keys of this array.
+	 *
+	 * @return Type
+	 */
+	public function getValueType()
+	{
+		return $this->valueType;
+	}
 
-    /**
-     * Returns a rendered output of the Type as it would be used in a DocBlock.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if ($this->valueType instanceof Mixed) {
-            return 'array';
-        }
+	/**
+	 * Returns a rendered output of the Type as it would be used in a DocBlock.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		if ($this->valueType instanceof Mixed) {
+			return 'array';
+		}
 
-        return $this->valueType . '[]';
-    }
+		return $this->valueType . '[]';
+	}
 }

@@ -22,14 +22,14 @@ use phpDocumentor\Reflection\DocBlock\Tags\See;
  */
 class ReconstitutingADocBlockTest extends \PHPUnit_Framework_TestCase
 {
-    public function testReconstituteADocBlock()
-    {
-        /**
-         * @var string $docComment
-         * @var string $reconstitutedDocComment
-         */
-        include(__DIR__ . '/../../examples/03-reconstituting-a-docblock.php');
+	public function testReconstituteADocBlock()
+	{
+		/**
+		 * @var string $docComment
+		 * @var string $reconstitutedDocComment
+		 */
+		include(__DIR__ . '/../../examples/03-reconstituting-a-docblock.php');
 
-        $this->assertSame($docComment, $reconstitutedDocComment);
-    }
+		$this->assertSame($docComment, $reconstitutedDocComment);
+	}
 }

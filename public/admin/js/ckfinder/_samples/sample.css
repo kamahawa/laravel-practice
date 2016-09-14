@@ -17,7 +17,7 @@ html, body, h1, h2, h3, h4, h5, h6, div, span, blockquote, p, address, form, fie
 }
 
 body {
-	padding:10px 30px;
+	padding: 10px 30px;
 }
 
 input, textarea, select, option, optgroup, button, td, th {
@@ -28,40 +28,39 @@ pre,
 code,
 kbd,
 samp,
-tt{
-  font-family: monospace,monospace;
-  font-size: 1em;
+tt {
+	font-family: monospace, monospace;
+	font-size: 1em;
 }
 
 h1.samples {
-  color:#92B901;
-  font-size:200%;
-  font-weight:normal;
-  margin: 0;
-  padding: 0;
+	color: #92B901;
+	font-size: 200%;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
 }
 
 h2.samples {
-  color:#000000;
-  font-size:130%;
-  margin: 0;
-  padding: 0;
+	color: #000000;
+	font-size: 130%;
+	margin: 0;
+	padding: 0;
 }
 
 p, blockquote, address, form, pre, dl, h1.samples, h2.samples {
-	margin-bottom:15px;
+	margin-bottom: 15px;
 }
 
 ul.samples {
-	margin-bottom:15px;
+	margin-bottom: 15px;
 }
 
 .clear {
-	clear:both;
+	clear: both;
 }
 
-fieldset
-{
+fieldset {
 	margin: 0;
 	padding: 10px;
 }
@@ -77,30 +76,27 @@ body {
 
 a.samples {
 	color: #92B901;
-	text-decoration:none;
+	text-decoration: none;
 }
 
 a.samples:hover {
-  text-decoration:underline;
+	text-decoration: underline;
 	color: #BED567;
 }
 
-form
-{
+form {
 	margin: 0;
 	padding: 0;
 }
 
-pre.samples
-{
+pre.samples {
 	background-color: #F7F7F7;
 	border: 1px solid #D7D7D7;
 	overflow: auto;
 	padding: 0.25em;
 }
 
-#alerts
-{
+#alerts {
 	color: Red;
 }
 
@@ -108,47 +104,41 @@ pre.samples
 	clear: both;
 	padding-top: 10px;
 }
-#footer hr
-{
+
+#footer hr {
 	margin: 10px 0 15px 0;
 	height: 1px;
 	border: solid 1px gray;
 	border-bottom: none;
 }
 
-#footer p
-{
+#footer p {
 	margin: 0 10px 10px 10px;
 	float: left;
 }
 
-#footer #copy
-{
+#footer #copy {
 	float: right;
 }
 
-#outputSample
-{
+#outputSample {
 	width: 100%;
 	table-layout: fixed;
 }
 
-#outputSample thead th
-{
+#outputSample thead th {
 	color: #dddddd;
 	background-color: #999999;
 	padding: 4px;
 	white-space: nowrap;
 }
 
-#outputSample tbody th
-{
+#outputSample tbody th {
 	vertical-align: top;
 	text-align: left;
 }
 
-#outputSample pre
-{
+#outputSample pre {
 	margin: 0;
 	padding: 0;
 	white-space: pre; /* CSS2 */
@@ -167,5 +157,5 @@ pre.samples
 
 label {
 	display: block;
-	margin-bottom:6px;
+	margin-bottom: 6px;
 }

@@ -17,14 +17,14 @@ define('GLOBAL_FUNCTIONS_FILE', HAMCREST_BASE . DIRECTORY_SEPARATOR . 'Hamcrest.
 define('STATIC_MATCHERS_FILE', HAMCREST_BASE . DIRECTORY_SEPARATOR . 'Hamcrest' . DIRECTORY_SEPARATOR . 'Matchers.php');
 
 set_include_path(
-    implode(
-        PATH_SEPARATOR,
-        array(
-            GENERATOR_BASE,
-            HAMCREST_BASE,
-            get_include_path()
-        )
-    )
+	implode(
+		PATH_SEPARATOR,
+		array(
+			GENERATOR_BASE,
+			HAMCREST_BASE,
+			get_include_path()
+		)
+	)
 );
 
 @unlink(GLOBAL_FUNCTIONS_FILE);

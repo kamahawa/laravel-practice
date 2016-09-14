@@ -149,17 +149,18 @@ class Morris.Line extends Morris.Grid
       label.transform("t0,#{labelBox.height / 2}...")
       if @options.xLabelAngle != 0
         offset = -0.5 * textBox.width *
-          Math.cos(@options.xLabelAngle * Math.PI / 180.0)
+            Math.cos(@options.xLabelAngle * Math.PI / 180.0)
         label.transform("t#{offset},0...")
       # try to avoid overlaps
       labelBox = label.getBBox()
       if (not prevLabelMargin? or
-          prevLabelMargin >= labelBox.x + labelBox.width or
-          prevAngleMargin? and prevAngleMargin >= labelBox.x) and
-         labelBox.x >= 0 and (labelBox.x + labelBox.width) < @el.width()
+        prevLabelMargin >= labelBox.x + labelBox.width or
+        prevAngleMargin? and prevAngleMargin >= labelBox.x) and
+        labelBox.x >= 0 and (labelBox.x + labelBox.width) < @el.width()
         if @options.xLabelAngle != 0
           margin = 1.25 * @options.gridTextSize /
-            Math.sin(@options.xLabelAngle * Math.PI / 180.0)
+            Math.sin(@options.xLabelAngle * Math.PI / 180.0
+          )
           prevAngleMargin = labelBox.x - margin
         prevLabelMargin = labelBox.x - @options.xLabelMargin
       else
@@ -183,9 +184,9 @@ class Morris.Line extends Morris.Grid
   # @private
   drawSeries: ->
     @seriesPoints = []
-    for i in [@options.ykeys.length-1..0]
+    for i in [@options.ykeys.length - 1..0]
       @_drawLineFor i
-    for i in [@options.ykeys.length-1..0]
+    for i in [@options.ykeys.length - 1..0]
       @_drawPointFor i
 
   _drawPointFor: (index) ->
@@ -233,7 +234,8 @@ class Morris.Line extends Morris.Grid
   #
   # @private
   @gradients: (coords) ->
-    grad = (a, b) -> (a.y - b.y) / (a.x - b.x)
+    grad = (a, b) ->
+      (a.y - b.y) / (a.x - b.x)
     for coord, i in coords
       if coord.y?
         nextCoord = coords[i + 1] or {y: null}
@@ -252,11 +254,11 @@ class Morris.Line extends Morris.Grid
   # @private
   hilight: (index) =>
     if @prevHilight isnt null and @prevHilight isnt index
-      for i in [0..@seriesPoints.length-1]
+      for i in [0..@seriesPoints.length - 1]
         if @seriesPoints[i][@prevHilight]
           @seriesPoints[i][@prevHilight].animate @pointShrinkSeries(i)
     if index isnt null and @prevHilight isnt index
-      for i in [0..@seriesPoints.length-1]
+      for i in [0..@seriesPoints.length - 1]
         if @seriesPoints[i][index]
           @seriesPoints[i][index].animate @pointGrowSeries(i)
     @prevHilight = index
@@ -271,21 +273,21 @@ class Morris.Line extends Morris.Grid
 
   drawXAxisLabel: (xPos, yPos, text) ->
     @raphael.text(xPos, yPos, text)
-      .attr('font-size', @options.gridTextSize)
-      .attr('font-family', @options.gridTextFamily)
-      .attr('font-weight', @options.gridTextWeight)
-      .attr('fill', @options.gridTextColor)
+    .attr('font-size', @options.gridTextSize)
+    .attr('font-family', @options.gridTextFamily)
+    .attr('font-weight', @options.gridTextWeight)
+    .attr('fill', @options.gridTextColor)
 
   drawLinePath: (path, lineColor, lineIndex) ->
     @raphael.path(path)
-      .attr('stroke', lineColor)
-      .attr('stroke-width', @lineWidthForSeries(lineIndex))
+    .attr('stroke', lineColor)
+    .attr('stroke-width', @lineWidthForSeries(lineIndex))
 
   drawLinePoint: (xPos, yPos, pointColor, lineIndex) ->
     @raphael.circle(xPos, yPos, @pointSizeForSeries(lineIndex))
-      .attr('fill', pointColor)
-      .attr('stroke-width', @pointStrokeWidthForSeries(lineIndex))
-      .attr('stroke', @pointStrokeColorForSeries(lineIndex))
+    .attr('fill', pointColor)
+    .attr('stroke-width', @pointStrokeWidthForSeries(lineIndex))
+    .attr('stroke', @pointStrokeColorForSeries(lineIndex))
 
   # @private
   pointStrokeWidthForSeries: (index) ->
@@ -349,43 +351,64 @@ Morris.labelSeries = (dmin, dmax, pxwidth, specName, xLabelFormat) ->
 # @private
 minutesSpecHelper = (interval) ->
   span: interval * 60 * 1000
-  start: (d) -> new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours())
-  fmt: (d) -> "#{Morris.pad2(d.getHours())}:#{Morris.pad2(d.getMinutes())}"
-  incr: (d) -> d.setUTCMinutes(d.getUTCMinutes() + interval)
+  start: (d) ->
+    new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours())
+  fmt: (d) ->
+    "#{Morris.pad2(d.getHours())}:#{Morris.pad2(d.getMinutes())}"
+  incr: (d) ->
+    d.setUTCMinutes(d.getUTCMinutes() + interval)
 
 # @private
 secondsSpecHelper = (interval) ->
   span: interval * 1000
-  start: (d) -> new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes())
-  fmt: (d) -> "#{Morris.pad2(d.getHours())}:#{Morris.pad2(d.getMinutes())}:#{Morris.pad2(d.getSeconds())}"
-  incr: (d) -> d.setUTCSeconds(d.getUTCSeconds() + interval)
+  start: (d) ->
+    new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes())
+  fmt: (d) ->
+    "#{Morris.pad2(d.getHours())}:#{Morris.pad2(d.getMinutes())}:#{Morris.pad2(d.getSeconds())}"
+  incr: (d) ->
+    d.setUTCSeconds(d.getUTCSeconds() + interval)
 
 Morris.LABEL_SPECS =
   "decade":
     span: 172800000000 # 10 * 365 * 24 * 60 * 60 * 1000
-    start: (d) -> new Date(d.getFullYear() - d.getFullYear() % 10, 0, 1)
-    fmt: (d) -> "#{d.getFullYear()}"
-    incr: (d) -> d.setFullYear(d.getFullYear() + 10)
+    start: (d) ->
+      new Date(d.getFullYear() - d.getFullYear() % 10, 0, 1)
+    fmt: (d) ->
+      "#{d.getFullYear()}"
+    incr: (d) ->
+      d.setFullYear(d.getFullYear() + 10)
   "year":
     span: 17280000000 # 365 * 24 * 60 * 60 * 1000
-    start: (d) -> new Date(d.getFullYear(), 0, 1)
-    fmt: (d) -> "#{d.getFullYear()}"
-    incr: (d) -> d.setFullYear(d.getFullYear() + 1)
+    start: (d) ->
+      new Date(d.getFullYear(), 0, 1)
+    fmt: (d) ->
+      "#{d.getFullYear()}"
+    incr: (d) ->
+      d.setFullYear(d.getFullYear() + 1)
   "month":
     span: 2419200000 # 28 * 24 * 60 * 60 * 1000
-    start: (d) -> new Date(d.getFullYear(), d.getMonth(), 1)
-    fmt: (d) -> "#{d.getFullYear()}-#{Morris.pad2(d.getMonth() + 1)}"
-    incr: (d) -> d.setMonth(d.getMonth() + 1)
+    start: (d) ->
+      new Date(d.getFullYear(), d.getMonth(), 1)
+    fmt: (d) ->
+      "#{d.getFullYear()}-#{Morris.pad2(d.getMonth() + 1)}"
+    incr: (d) ->
+      d.setMonth(d.getMonth() + 1)
   "week":
     span: 604800000 # 7 * 24 * 60 * 60 * 1000
-    start: (d) -> new Date(d.getFullYear(), d.getMonth(), d.getDate())
-    fmt: (d) -> "#{d.getFullYear()}-#{Morris.pad2(d.getMonth() + 1)}-#{Morris.pad2(d.getDate())}"
-    incr: (d) -> d.setDate(d.getDate() + 7)
+    start: (d) ->
+      new Date(d.getFullYear(), d.getMonth(), d.getDate())
+    fmt: (d) ->
+      "#{d.getFullYear()}-#{Morris.pad2(d.getMonth() + 1)}-#{Morris.pad2(d.getDate())}"
+    incr: (d) ->
+      d.setDate(d.getDate() + 7)
   "day":
     span: 86400000 # 24 * 60 * 60 * 1000
-    start: (d) -> new Date(d.getFullYear(), d.getMonth(), d.getDate())
-    fmt: (d) -> "#{d.getFullYear()}-#{Morris.pad2(d.getMonth() + 1)}-#{Morris.pad2(d.getDate())}"
-    incr: (d) -> d.setDate(d.getDate() + 1)
+    start: (d) ->
+      new Date(d.getFullYear(), d.getMonth(), d.getDate())
+    fmt: (d) ->
+      "#{d.getFullYear()}-#{Morris.pad2(d.getMonth() + 1)}-#{Morris.pad2(d.getDate())}"
+    incr: (d) ->
+      d.setDate(d.getDate() + 1)
   "hour": minutesSpecHelper(60)
   "30min": minutesSpecHelper(30)
   "15min": minutesSpecHelper(15)

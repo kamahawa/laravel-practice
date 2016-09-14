@@ -1,9 +1,9 @@
 <?php
 namespace Hamcrest;
 
-/*
- Copyright (c) 2009 hamcrest.org
- */
+	/*
+	 Copyright (c) 2009 hamcrest.org
+	 */
 
 /**
  * Official documentation for this class is missing.
@@ -11,15 +11,15 @@ namespace Hamcrest;
 abstract class DiagnosingMatcher extends BaseMatcher
 {
 
-    final public function matches($item)
-    {
-        return $this->matchesWithDiagnosticDescription($item, new NullDescription());
-    }
+	final public function matches($item)
+	{
+		return $this->matchesWithDiagnosticDescription($item, new NullDescription());
+	}
 
-    public function describeMismatch($item, Description $mismatchDescription)
-    {
-        $this->matchesWithDiagnosticDescription($item, $mismatchDescription);
-    }
+	public function describeMismatch($item, Description $mismatchDescription)
+	{
+		$this->matchesWithDiagnosticDescription($item, $mismatchDescription);
+	}
 
-    abstract protected function matchesWithDiagnosticDescription($item, Description $mismatchDescription);
+	abstract protected function matchesWithDiagnosticDescription($item, Description $mismatchDescription);
 }

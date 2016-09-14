@@ -16,13 +16,13 @@ use Symfony\Component\Translation\Dumper\IcuResFileDumper;
 
 class IcuResFileDumperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFormatCatalogue()
-    {
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'));
+	public function testFormatCatalogue()
+	{
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'));
 
-        $dumper = new IcuResFileDumper();
+		$dumper = new IcuResFileDumper();
 
-        $this->assertStringEqualsFile(__DIR__.'/../fixtures/resourcebundle/res/en.res', $dumper->formatCatalogue($catalogue, 'messages'));
-    }
+		$this->assertStringEqualsFile(__DIR__ . '/../fixtures/resourcebundle/res/en.res', $dumper->formatCatalogue($catalogue, 'messages'));
+	}
 }

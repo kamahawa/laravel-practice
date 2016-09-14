@@ -23,32 +23,32 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 
 class NamedMockTest extends MockeryTestCase
 {
-    /** @test */
-    public function itCreatesANamedMock()
-    {
-        $mock = Mockery::namedMock("Mockery\Dave123");
-        $this->assertEquals("Mockery\Dave123", get_class($mock));
-    }
+	/** @test */
+	public function itCreatesANamedMock()
+	{
+		$mock = Mockery::namedMock("Mockery\Dave123");
+		$this->assertEquals("Mockery\Dave123", get_class($mock));
+	}
 
-    /** @test */
-    public function itCreatesPassesFurtherArgumentsJustLikeMock()
-    {
-        $mock = Mockery::namedMock("Mockery\Dave456", "DateTime", array(
-            "getDave" => "dave"
-        ));
+	/** @test */
+	public function itCreatesPassesFurtherArgumentsJustLikeMock()
+	{
+		$mock = Mockery::namedMock("Mockery\Dave456", "DateTime", array(
+			"getDave" => "dave"
+		));
 
-        $this->assertInstanceOf("DateTime", $mock);
-        $this->assertEquals("dave", $mock->getDave());
-    }
+		$this->assertInstanceOf("DateTime", $mock);
+		$this->assertEquals("dave", $mock->getDave());
+	}
 
-    /**
-     * @test
-     * @expectedException Mockery\Exception
-     * @expectedExceptionMessage The mock named 'Mockery\Dave7' has been already defined with a different mock configuration
-     */
-    public function itShouldThrowIfAttemptingToRedefineNamedMock()
-    {
-        $mock = Mockery::namedMock("Mockery\Dave7");
-        $mock = Mockery::namedMock("Mockery\Dave7", "DateTime");
-    }
+	/**
+	 * @test
+	 * @expectedException Mockery\Exception
+	 * @expectedExceptionMessage The mock named 'Mockery\Dave7' has been already defined with a different mock configuration
+	 */
+	public function itShouldThrowIfAttemptingToRedefineNamedMock()
+	{
+		$mock = Mockery::namedMock("Mockery\Dave7");
+		$mock = Mockery::namedMock("Mockery\Dave7", "DateTime");
+	}
 }

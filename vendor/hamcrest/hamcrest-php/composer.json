@@ -4,15 +4,17 @@
 	"description": "This is the PHP port of Hamcrest Matchers",
 	"keywords": ["test"],
 	"license": "BSD",
-	"authors": [
-	],
+	"authors": [],
 
 	"autoload": {
 		"classmap": ["hamcrest"],
 		"files": ["hamcrest/Hamcrest.php"]
 	},
 	"autoload-dev": {
-		"classmap": ["tests", "generator"]
+		"classmap": [
+			"tests",
+			"generator"
+		]
 	},
 
 	"require": {

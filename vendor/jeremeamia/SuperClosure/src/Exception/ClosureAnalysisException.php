@@ -5,5 +5,5 @@
  */
 class ClosureAnalysisException extends \RuntimeException implements SuperClosureException
 {
-    //
+	//
 }

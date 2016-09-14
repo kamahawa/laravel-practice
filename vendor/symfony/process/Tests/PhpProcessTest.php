@@ -16,34 +16,34 @@ use Symfony\Component\Process\PhpProcess;
 
 class PhpProcessTest extends \PHPUnit_Framework_TestCase
 {
-    public function testNonBlockingWorks()
-    {
-        $expected = 'hello world!';
-        $process = new PhpProcess(<<<PHP
+	public function testNonBlockingWorks()
+	{
+		$expected = 'hello world!';
+		$process = new PhpProcess(<<<PHP
 <?php echo '$expected';
 PHP
-        );
-        $process->start();
-        $process->wait();
-        $this->assertEquals($expected, $process->getOutput());
-    }
+		);
+		$process->start();
+		$process->wait();
+		$this->assertEquals($expected, $process->getOutput());
+	}
 
-    public function testCommandLine()
-    {
-        $process = new PhpProcess(<<<'PHP'
+	public function testCommandLine()
+	{
+		$process = new PhpProcess(<<<'PHP'
 <?php echo 'foobar';
 PHP
-        );
+		);
 
-        $commandLine = $process->getCommandLine();
+		$commandLine = $process->getCommandLine();
 
-        $f = new PhpExecutableFinder();
-        $this->assertContains($f->find(), $commandLine, '::getCommandLine() returns the command line of PHP before start');
+		$f = new PhpExecutableFinder();
+		$this->assertContains($f->find(), $commandLine, '::getCommandLine() returns the command line of PHP before start');
 
-        $process->start();
-        $this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after start');
+		$process->start();
+		$this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after start');
 
-        $process->wait();
-        $this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after wait');
-    }
+		$process->wait();
+		$this->assertContains($commandLine, $process->getCommandLine(), '::getCommandLine() returns the command line of PHP after wait');
+	}
 }

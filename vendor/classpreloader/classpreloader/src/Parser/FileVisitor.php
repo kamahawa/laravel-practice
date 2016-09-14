@@ -24,42 +24,42 @@ use PhpParser\Node\Scalar\String_ as StringNode;
  */
 class FileVisitor extends AbstractNodeVisitor
 {
-    /**
-     * Should we skip the file if it contains a file constant?
-     *
-     * @var bool
-     */
-    protected $skip = false;
+	/**
+	 * Should we skip the file if it contains a file constant?
+	 *
+	 * @var bool
+	 */
+	protected $skip = false;
 
-    /**
-     * Create a new file visitor instance.
-     *
-     * @param bool $skip
-     *
-     * @return void
-     */
-    public function __construct($skip = false)
-    {
-        $this->skip = $skip;
-    }
+	/**
+	 * Create a new file visitor instance.
+	 *
+	 * @param bool $skip
+	 *
+	 * @return void
+	 */
+	public function __construct($skip = false)
+	{
+		$this->skip = $skip;
+	}
 
-    /**
-     * Enter and modify the node.
-     *
-     * @param \PhpParser\Node $node
-     *
-     * @throws \ClassPreloader\Exceptions\FileConstantException
-     *
-     * @return \PhpParser\Node\Scalar\String_|null
-     */
-    public function enterNode(Node $node)
-    {
-        if ($node instanceof FileNode) {
-            if ($this->skip) {
-                throw new FileConstantException();
-            }
+	/**
+	 * Enter and modify the node.
+	 *
+	 * @param \PhpParser\Node $node
+	 *
+	 * @throws \ClassPreloader\Exceptions\FileConstantException
+	 *
+	 * @return \PhpParser\Node\Scalar\String_|null
+	 */
+	public function enterNode(Node $node)
+	{
+		if ($node instanceof FileNode) {
+			if ($this->skip) {
+				throw new FileConstantException();
+			}
 
-            return new StringNode($this->getFilename());
-        }
-    }
+			return new StringNode($this->getFilename());
+		}
+	}
 }

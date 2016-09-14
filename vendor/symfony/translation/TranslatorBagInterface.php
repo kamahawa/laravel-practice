@@ -18,14 +18,14 @@ namespace Symfony\Component\Translation;
  */
 interface TranslatorBagInterface
 {
-    /**
-     * Gets the catalogue by locale.
-     *
-     * @param string|null $locale The locale or null to use the default
-     *
-     * @return MessageCatalogueInterface
-     *
-     * @throws \InvalidArgumentException If the locale contains invalid characters
-     */
-    public function getCatalogue($locale = null);
+	/**
+	 * Gets the catalogue by locale.
+	 *
+	 * @param string|null $locale The locale or null to use the default
+	 *
+	 * @return MessageCatalogueInterface
+	 *
+	 * @throws \InvalidArgumentException If the locale contains invalid characters
+	 */
+	public function getCatalogue($locale = null);
 }

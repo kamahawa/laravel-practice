@@ -15,67 +15,67 @@
  */
 class PHPUnit_Framework_Warning extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var string
-     */
-    protected $message = '';
+	/**
+	 * @var string
+	 */
+	protected $message = '';
 
-    /**
-     * @var bool
-     */
-    protected $backupGlobals = false;
+	/**
+	 * @var bool
+	 */
+	protected $backupGlobals = false;
 
-    /**
-     * @var bool
-     */
-    protected $backupStaticAttributes = false;
+	/**
+	 * @var bool
+	 */
+	protected $backupStaticAttributes = false;
 
-    /**
-     * @var bool
-     */
-    protected $runTestInSeparateProcess = false;
+	/**
+	 * @var bool
+	 */
+	protected $runTestInSeparateProcess = false;
 
-    /**
-     * @var bool
-     */
-    protected $useErrorHandler = false;
+	/**
+	 * @var bool
+	 */
+	protected $useErrorHandler = false;
 
-    /**
-     * @param string $message
-     */
-    public function __construct($message = '')
-    {
-        $this->message = $message;
-        parent::__construct('Warning');
-    }
+	/**
+	 * @param string $message
+	 */
+	public function __construct($message = '')
+	{
+		$this->message = $message;
+		parent::__construct('Warning');
+	}
 
-    /**
-     * @throws PHPUnit_Framework_Exception
-     */
-    protected function runTest()
-    {
-        $this->fail($this->message);
-    }
+	/**
+	 * @throws PHPUnit_Framework_Exception
+	 */
+	protected function runTest()
+	{
+		$this->fail($this->message);
+	}
 
-    /**
-     * @return string
-     *
-     * @since  Method available since Release 3.0.0
-     */
-    public function getMessage()
-    {
-        return $this->message;
-    }
+	/**
+	 * @return string
+	 *
+	 * @since  Method available since Release 3.0.0
+	 */
+	public function getMessage()
+	{
+		return $this->message;
+	}
 
-    /**
-     * Returns a string representation of the test case.
-     *
-     * @return string
-     *
-     * @since  Method available since Release 3.4.0
-     */
-    public function toString()
-    {
-        return 'Warning';
-    }
+	/**
+	 * Returns a string representation of the test case.
+	 *
+	 * @return string
+	 *
+	 * @since  Method available since Release 3.4.0
+	 */
+	public function toString()
+	{
+		return 'Warning';
+	}
 }

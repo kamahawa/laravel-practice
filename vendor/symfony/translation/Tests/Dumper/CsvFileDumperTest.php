@@ -16,14 +16,14 @@ use Symfony\Component\Translation\Dumper\CsvFileDumper;
 
 class CsvFileDumperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFormatCatalogue()
-    {
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar', 'bar' => 'foo
+	public function testFormatCatalogue()
+	{
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar', 'bar' => 'foo
 foo', 'foo;foo' => 'bar'));
 
-        $dumper = new CsvFileDumper();
+		$dumper = new CsvFileDumper();
 
-        $this->assertStringEqualsFile(__DIR__.'/../fixtures/valid.csv', $dumper->formatCatalogue($catalogue, 'messages'));
-    }
+		$this->assertStringEqualsFile(__DIR__ . '/../fixtures/valid.csv', $dumper->formatCatalogue($catalogue, 'messages'));
+	}
 }

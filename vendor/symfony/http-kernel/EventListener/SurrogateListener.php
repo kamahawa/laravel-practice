@@ -23,36 +23,36 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class SurrogateListener implements EventSubscriberInterface
 {
-    private $surrogate;
+	private $surrogate;
 
-    /**
-     * Constructor.
-     *
-     * @param SurrogateInterface $surrogate An SurrogateInterface instance
-     */
-    public function __construct(SurrogateInterface $surrogate = null)
-    {
-        $this->surrogate = $surrogate;
-    }
+	/**
+	 * Constructor.
+	 *
+	 * @param SurrogateInterface $surrogate An SurrogateInterface instance
+	 */
+	public function __construct(SurrogateInterface $surrogate = null)
+	{
+		$this->surrogate = $surrogate;
+	}
 
-    /**
-     * Filters the Response.
-     *
-     * @param FilterResponseEvent $event A FilterResponseEvent instance
-     */
-    public function onKernelResponse(FilterResponseEvent $event)
-    {
-        if (!$event->isMasterRequest() || null === $this->surrogate) {
-            return;
-        }
+	/**
+	 * Filters the Response.
+	 *
+	 * @param FilterResponseEvent $event A FilterResponseEvent instance
+	 */
+	public function onKernelResponse(FilterResponseEvent $event)
+	{
+		if (!$event->isMasterRequest() || null === $this->surrogate) {
+			return;
+		}
 
-        $this->surrogate->addSurrogateControl($event->getResponse());
-    }
+		$this->surrogate->addSurrogateControl($event->getResponse());
+	}
 
-    public static function getSubscribedEvents()
-    {
-        return array(
-            KernelEvents::RESPONSE => 'onKernelResponse',
-        );
-    }
+	public static function getSubscribedEvents()
+	{
+		return array(
+			KernelEvents::RESPONSE => 'onKernelResponse',
+		);
+	}
 }

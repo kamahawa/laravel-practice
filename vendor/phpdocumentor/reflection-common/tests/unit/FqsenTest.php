@@ -17,72 +17,72 @@ namespace phpDocumentor\Reflection;
  */
 class FqsenTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @param string $fqsen
-     * @covers ::__construct
-     * @dataProvider validFqsenProvider
-     */
-    public function testValidFormats($fqsen, $name)
-    {
-        $instance  = new Fqsen($fqsen);
-        $this->assertEquals($name, $instance->getName());
-    }
+	/**
+	 * @param string $fqsen
+	 * @covers ::__construct
+	 * @dataProvider validFqsenProvider
+	 */
+	public function testValidFormats($fqsen, $name)
+	{
+		$instance = new Fqsen($fqsen);
+		$this->assertEquals($name, $instance->getName());
+	}
 
-    /**
-     * Data provider for ValidFormats tests. Contains a complete list from psr-5 draft.
-     *
-     * @return array
-     */
-    public function validFqsenProvider()
-    {
-        return [
-            ['\\', ''],
-            ['\My\Space', 'Space'],
-            ['\My\Space\myFunction()', 'myFunction'],
-            ['\My\Space\MY_CONSTANT', 'MY_CONSTANT'],
-            ['\My\Space\MY_CONSTANT2', 'MY_CONSTANT2'],
-            ['\My\Space\MyClass', 'MyClass'],
-            ['\My\Space\MyInterface', 'MyInterface'],
-            ['\My\Space\MyTrait', 'MyTrait'],
-            ['\My\Space\MyClass::myMethod()', 'myMethod'],
-            ['\My\Space\MyClass::$my_property', 'my_property'],
-            ['\My\Space\MyClass::MY_CONSTANT', 'MY_CONSTANT'],
-        ];
-    }
+	/**
+	 * Data provider for ValidFormats tests. Contains a complete list from psr-5 draft.
+	 *
+	 * @return array
+	 */
+	public function validFqsenProvider()
+	{
+		return [
+			['\\', ''],
+			['\My\Space', 'Space'],
+			['\My\Space\myFunction()', 'myFunction'],
+			['\My\Space\MY_CONSTANT', 'MY_CONSTANT'],
+			['\My\Space\MY_CONSTANT2', 'MY_CONSTANT2'],
+			['\My\Space\MyClass', 'MyClass'],
+			['\My\Space\MyInterface', 'MyInterface'],
+			['\My\Space\MyTrait', 'MyTrait'],
+			['\My\Space\MyClass::myMethod()', 'myMethod'],
+			['\My\Space\MyClass::$my_property', 'my_property'],
+			['\My\Space\MyClass::MY_CONSTANT', 'MY_CONSTANT'],
+		];
+	}
 
-    /**
-     * @param string $fqsen
-     * @covers ::__construct
-     * @dataProvider invalidFqsenProvider
-     * @expectedException \InvalidArgumentException
-     */
-    public function testInValidFormats($fqsen)
-    {
-        new Fqsen($fqsen);
-    }
+	/**
+	 * @param string $fqsen
+	 * @covers ::__construct
+	 * @dataProvider invalidFqsenProvider
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testInValidFormats($fqsen)
+	{
+		new Fqsen($fqsen);
+	}
 
-    /**
-     * Data provider for invalidFormats tests. Contains a complete list from psr-5 draft.
-     *
-     * @return array
-     */
-    public function invalidFqsenProvider()
-    {
-        return [
-            ['\My\*'],
-            ['\My\Space\.()'],
-            ['My\Space'],
-        ];
-    }
+	/**
+	 * Data provider for invalidFormats tests. Contains a complete list from psr-5 draft.
+	 *
+	 * @return array
+	 */
+	public function invalidFqsenProvider()
+	{
+		return [
+			['\My\*'],
+			['\My\Space\.()'],
+			['My\Space'],
+		];
+	}
 
-    /**
-     * @covers ::__construct
-     * @covers ::__toString
-     */
-    public function testToString()
-    {
-        $className = new Fqsen('\\phpDocumentor\\Application');
+	/**
+	 * @covers ::__construct
+	 * @covers ::__toString
+	 */
+	public function testToString()
+	{
+		$className = new Fqsen('\\phpDocumentor\\Application');
 
-        $this->assertEquals('\\phpDocumentor\\Application', (string)$className);
-    }
+		$this->assertEquals('\\phpDocumentor\\Application', (string)$className);
+	}
 }

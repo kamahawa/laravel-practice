@@ -24,42 +24,42 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 class HamcrestExpectationTest extends MockeryTestCase
 {
 
-    public function setUp()
-    {
-        $this->container = new \Mockery\Container(\Mockery::getDefaultGenerator(), \Mockery::getDefaultLoader());
-        $this->mock = $this->container->mock('foo');
-    }
+	public function setUp()
+	{
+		$this->container = new \Mockery\Container(\Mockery::getDefaultGenerator(), \Mockery::getDefaultLoader());
+		$this->mock = $this->container->mock('foo');
+	}
 
 
-    public function tearDown()
-    {
-        \Mockery::getConfiguration()->allowMockingNonExistentMethods(true);
-        $this->container->mockery_close();
-    }
+	public function tearDown()
+	{
+		\Mockery::getConfiguration()->allowMockingNonExistentMethods(true);
+		$this->container->mockery_close();
+	}
 
-    /** Just a quickie roundup of a few Hamcrest matchers to check nothing obvious out of place **/
+	/** Just a quickie roundup of a few Hamcrest matchers to check nothing obvious out of place **/
 
-    public function testAnythingConstraintMatchesArgument()
-    {
-        $this->mock->shouldReceive('foo')->with(anything())->once();
-        $this->mock->foo(2);
-        $this->container->mockery_verify();
-    }
+	public function testAnythingConstraintMatchesArgument()
+	{
+		$this->mock->shouldReceive('foo')->with(anything())->once();
+		$this->mock->foo(2);
+		$this->container->mockery_verify();
+	}
 
-    public function testGreaterThanConstraintMatchesArgument()
-    {
-        $this->mock->shouldReceive('foo')->with(greaterThan(1))->once();
-        $this->mock->foo(2);
-        $this->container->mockery_verify();
-    }
+	public function testGreaterThanConstraintMatchesArgument()
+	{
+		$this->mock->shouldReceive('foo')->with(greaterThan(1))->once();
+		$this->mock->foo(2);
+		$this->container->mockery_verify();
+	}
 
-    /**
-     * @expectedException Mockery\Exception
-     */
-    public function testGreaterThanConstraintNotMatchesArgument()
-    {
-        $this->mock->shouldReceive('foo')->with(greaterThan(1))->once();
-        $this->mock->foo(1);
-        $this->container->mockery_verify();
-    }
+	/**
+	 * @expectedException Mockery\Exception
+	 */
+	public function testGreaterThanConstraintNotMatchesArgument()
+	{
+		$this->mock->shouldReceive('foo')->with(greaterThan(1))->once();
+		$this->mock->foo(1);
+		$this->container->mockery_verify();
+	}
 }

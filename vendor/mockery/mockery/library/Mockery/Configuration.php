@@ -23,109 +23,109 @@ namespace Mockery;
 class Configuration
 {
 
-    /**
-     * Boolean assertion of whether we can mock methods which do not actually
-     * exist for the given class or object (ignored for unreal mocks)
-     *
-     * @var bool
-     */
-    protected $_allowMockingNonExistentMethod = true;
+	/**
+	 * Boolean assertion of whether we can mock methods which do not actually
+	 * exist for the given class or object (ignored for unreal mocks)
+	 *
+	 * @var bool
+	 */
+	protected $_allowMockingNonExistentMethod = true;
 
-    /**
-     * Boolean assertion of whether we ignore unnecessary mocking of methods,
-     * i.e. when method expectations are made, set using a zeroOrMoreTimes()
-     * constraint, and then never called. Essentially such expectations are
-     * not required and are just taking up test space.
-     *
-     * @var bool
-     */
-    protected $_allowMockingMethodsUnnecessarily = true;
+	/**
+	 * Boolean assertion of whether we ignore unnecessary mocking of methods,
+	 * i.e. when method expectations are made, set using a zeroOrMoreTimes()
+	 * constraint, and then never called. Essentially such expectations are
+	 * not required and are just taking up test space.
+	 *
+	 * @var bool
+	 */
+	protected $_allowMockingMethodsUnnecessarily = true;
 
-    /**
-     * Parameter map for use with PHP internal classes.
-     *
-     * @var array
-     */
-    protected $_internalClassParamMap = array();
+	/**
+	 * Parameter map for use with PHP internal classes.
+	 *
+	 * @var array
+	 */
+	protected $_internalClassParamMap = array();
 
-    /**
-     * Set boolean to allow/prevent mocking of non-existent methods
-     *
-     * @param bool
-     */
-    public function allowMockingNonExistentMethods($flag = true)
-    {
-        $this->_allowMockingNonExistentMethod = (bool) $flag;
-    }
+	/**
+	 * Set boolean to allow/prevent mocking of non-existent methods
+	 *
+	 * @param bool
+	 */
+	public function allowMockingNonExistentMethods($flag = true)
+	{
+		$this->_allowMockingNonExistentMethod = (bool)$flag;
+	}
 
-    /**
-     * Return flag indicating whether mocking non-existent methods allowed
-     *
-     * @return bool
-     */
-    public function mockingNonExistentMethodsAllowed()
-    {
-        return $this->_allowMockingNonExistentMethod;
-    }
+	/**
+	 * Return flag indicating whether mocking non-existent methods allowed
+	 *
+	 * @return bool
+	 */
+	public function mockingNonExistentMethodsAllowed()
+	{
+		return $this->_allowMockingNonExistentMethod;
+	}
 
-    /**
-     * Set boolean to allow/prevent unnecessary mocking of methods
-     *
-     * @param bool
-     */
-    public function allowMockingMethodsUnnecessarily($flag = true)
-    {
-        $this->_allowMockingMethodsUnnecessarily = (bool) $flag;
-    }
+	/**
+	 * Set boolean to allow/prevent unnecessary mocking of methods
+	 *
+	 * @param bool
+	 */
+	public function allowMockingMethodsUnnecessarily($flag = true)
+	{
+		$this->_allowMockingMethodsUnnecessarily = (bool)$flag;
+	}
 
-    /**
-     * Return flag indicating whether mocking non-existent methods allowed
-     *
-     * @return bool
-     */
-    public function mockingMethodsUnnecessarilyAllowed()
-    {
-        return $this->_allowMockingMethodsUnnecessarily;
-    }
+	/**
+	 * Return flag indicating whether mocking non-existent methods allowed
+	 *
+	 * @return bool
+	 */
+	public function mockingMethodsUnnecessarilyAllowed()
+	{
+		return $this->_allowMockingMethodsUnnecessarily;
+	}
 
-    /**
-     * Set a parameter map (array of param signature strings) for the method
-     * of an internal PHP class.
-     *
-     * @param string $class
-     * @param string $method
-     * @param array $map
-     */
-    public function setInternalClassMethodParamMap($class, $method, array $map)
-    {
-        if (!isset($this->_internalClassParamMap[strtolower($class)])) {
-            $this->_internalClassParamMap[strtolower($class)] = array();
-        }
-        $this->_internalClassParamMap[strtolower($class)][strtolower($method)] = $map;
-    }
+	/**
+	 * Set a parameter map (array of param signature strings) for the method
+	 * of an internal PHP class.
+	 *
+	 * @param string $class
+	 * @param string $method
+	 * @param array $map
+	 */
+	public function setInternalClassMethodParamMap($class, $method, array $map)
+	{
+		if (!isset($this->_internalClassParamMap[strtolower($class)])) {
+			$this->_internalClassParamMap[strtolower($class)] = array();
+		}
+		$this->_internalClassParamMap[strtolower($class)][strtolower($method)] = $map;
+	}
 
-    /**
-     * Remove all overriden parameter maps from internal PHP classes.
-     */
-    public function resetInternalClassMethodParamMaps()
-    {
-        $this->_internalClassParamMap = array();
-    }
+	/**
+	 * Remove all overriden parameter maps from internal PHP classes.
+	 */
+	public function resetInternalClassMethodParamMaps()
+	{
+		$this->_internalClassParamMap = array();
+	}
 
-    /**
-     * Get the parameter map of an internal PHP class method
-     *
-     * @return array
-     */
-    public function getInternalClassMethodParamMap($class, $method)
-    {
-        if (isset($this->_internalClassParamMap[strtolower($class)][strtolower($method)])) {
-            return $this->_internalClassParamMap[strtolower($class)][strtolower($method)];
-        }
-    }
+	/**
+	 * Get the parameter map of an internal PHP class method
+	 *
+	 * @return array
+	 */
+	public function getInternalClassMethodParamMap($class, $method)
+	{
+		if (isset($this->_internalClassParamMap[strtolower($class)][strtolower($method)])) {
+			return $this->_internalClassParamMap[strtolower($class)][strtolower($method)];
+		}
+	}
 
-    public function getInternalClassMethodParamMaps()
-    {
-        return $this->_internalClassParamMap;
-    }
+	public function getInternalClassMethodParamMaps()
+	{
+		return $this->_internalClassParamMap;
+	}
 }

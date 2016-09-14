@@ -16,13 +16,13 @@ use Symfony\Component\Translation\Dumper\QtFileDumper;
 
 class QtFileDumperTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFormatCatalogue()
-    {
-        $catalogue = new MessageCatalogue('en');
-        $catalogue->add(array('foo' => 'bar'), 'resources');
+	public function testFormatCatalogue()
+	{
+		$catalogue = new MessageCatalogue('en');
+		$catalogue->add(array('foo' => 'bar'), 'resources');
 
-        $dumper = new QtFileDumper();
+		$dumper = new QtFileDumper();
 
-        $this->assertStringEqualsFile(__DIR__.'/../fixtures/resources.ts', $dumper->formatCatalogue($catalogue, 'resources'));
-    }
+		$this->assertStringEqualsFile(__DIR__ . '/../fixtures/resources.ts', $dumper->formatCatalogue($catalogue, 'resources'));
+	}
 }

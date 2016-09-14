@@ -27,52 +27,52 @@ use Mockery\Adapter\Phpunit\MockeryTestCase;
 class Mockery_AdhocTest extends MockeryTestCase
 {
 
-    public function setup()
-    {
-        $this->container = new \Mockery\Container(\Mockery::getDefaultGenerator(), \Mockery::getDefaultLoader());
-    }
+	public function setup()
+	{
+		$this->container = new \Mockery\Container(\Mockery::getDefaultGenerator(), \Mockery::getDefaultLoader());
+	}
 
-    public function teardown()
-    {
-        $this->container->mockery_close();
-    }
+	public function teardown()
+	{
+		$this->container->mockery_close();
+	}
 
-    public function testSimplestMockCreation()
-    {
-        $m = $this->container->mock('MockeryTest_NameOfExistingClass');
-        $this->assertTrue($m instanceof MockeryTest_NameOfExistingClass);
-    }
+	public function testSimplestMockCreation()
+	{
+		$m = $this->container->mock('MockeryTest_NameOfExistingClass');
+		$this->assertTrue($m instanceof MockeryTest_NameOfExistingClass);
+	}
 
-    public function testMockeryInterfaceForClass()
-    {
-        $m = $this->container->mock('SplFileInfo');
-        $this->assertTrue($m instanceof \Mockery\MockInterface);
-    }
+	public function testMockeryInterfaceForClass()
+	{
+		$m = $this->container->mock('SplFileInfo');
+		$this->assertTrue($m instanceof \Mockery\MockInterface);
+	}
 
-    public function testMockeryInterfaceForNonExistingClass()
-    {
-        $m = $this->container->mock('ABC_IDontExist');
-        $this->assertTrue($m instanceof \Mockery\MockInterface);
-    }
+	public function testMockeryInterfaceForNonExistingClass()
+	{
+		$m = $this->container->mock('ABC_IDontExist');
+		$this->assertTrue($m instanceof \Mockery\MockInterface);
+	}
 
-    public function testMockeryInterfaceForInterface()
-    {
-        $m = $this->container->mock('MockeryTest_NameOfInterface');
-        $this->assertTrue($m instanceof \Mockery\MockInterface);
-    }
+	public function testMockeryInterfaceForInterface()
+	{
+		$m = $this->container->mock('MockeryTest_NameOfInterface');
+		$this->assertTrue($m instanceof \Mockery\MockInterface);
+	}
 
-    public function testMockeryInterfaceForAbstract()
-    {
-        $m = $this->container->mock('MockeryTest_NameOfAbstract');
-        $this->assertTrue($m instanceof \Mockery\MockInterface);
-    }
+	public function testMockeryInterfaceForAbstract()
+	{
+		$m = $this->container->mock('MockeryTest_NameOfAbstract');
+		$this->assertTrue($m instanceof \Mockery\MockInterface);
+	}
 
-    public function testInvalidCountExceptionThrowsRuntimeExceptionOnIllegalComparativeSymbol()
-    {
-        $this->setExpectedException('Mockery\Exception\RuntimeException');
-        $e = new \Mockery\Exception\InvalidCountException;
-        $e->setExpectedCountComparative('X');
-    }
+	public function testInvalidCountExceptionThrowsRuntimeExceptionOnIllegalComparativeSymbol()
+	{
+		$this->setExpectedException('Mockery\Exception\RuntimeException');
+		$e = new \Mockery\Exception\InvalidCountException;
+		$e->setExpectedCountComparative('X');
+	}
 }
 
 class MockeryTest_NameOfExistingClass
@@ -81,10 +81,10 @@ class MockeryTest_NameOfExistingClass
 
 interface MockeryTest_NameOfInterface
 {
-    public function foo();
+	public function foo();
 }
 
 abstract class MockeryTest_NameOfAbstract
 {
-    abstract public function foo();
+	abstract public function foo();
 }

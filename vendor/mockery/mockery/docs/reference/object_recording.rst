@@ -1,5 +1,5 @@
 .. index::
-    single: Mocking; Object Recording
+single: Mocking; Object Recording
 
 Mock Object Recording
 =====================

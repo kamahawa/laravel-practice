@@ -21,13 +21,13 @@ use phpDocumentor\Reflection\Type;
  */
 final class Self_ implements Type
 {
-    /**
-     * Returns a rendered output of the Type as it would be used in a DocBlock.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return 'self';
-    }
+	/**
+	 * Returns a rendered output of the Type as it would be used in a DocBlock.
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return 'self';
+	}
 }

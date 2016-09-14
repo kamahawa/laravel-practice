@@ -21,38 +21,38 @@ namespace Symfony\Component\Finder\Iterator;
  */
 abstract class FilterIterator extends \FilterIterator
 {
-    /**
-     * This is a workaround for the problem with \FilterIterator leaving inner \FilesystemIterator in wrong state after
-     * rewind in some cases.
-     *
-     * @see FilterIterator::rewind()
-     */
-    public function rewind()
-    {
-        if (PHP_VERSION_ID > 50607 || (PHP_VERSION_ID > 50523 && PHP_VERSION_ID < 50600)) {
-            parent::rewind();
+	/**
+	 * This is a workaround for the problem with \FilterIterator leaving inner \FilesystemIterator in wrong state after
+	 * rewind in some cases.
+	 *
+	 * @see FilterIterator::rewind()
+	 */
+	public function rewind()
+	{
+		if (PHP_VERSION_ID > 50607 || (PHP_VERSION_ID > 50523 && PHP_VERSION_ID < 50600)) {
+			parent::rewind();
 
-            return;
-        }
+			return;
+		}
 
-        $iterator = $this;
-        while ($iterator instanceof \OuterIterator) {
-            $innerIterator = $iterator->getInnerIterator();
+		$iterator = $this;
+		while ($iterator instanceof \OuterIterator) {
+			$innerIterator = $iterator->getInnerIterator();
 
-            if ($innerIterator instanceof RecursiveDirectoryIterator) {
-                // this condition is necessary for iterators to work properly with non-local filesystems like ftp
-                if ($innerIterator->isRewindable()) {
-                    $innerIterator->next();
-                    $innerIterator->rewind();
-                }
-            } elseif ($innerIterator instanceof \FilesystemIterator) {
-                $innerIterator->next();
-                $innerIterator->rewind();
-            }
+			if ($innerIterator instanceof RecursiveDirectoryIterator) {
+				// this condition is necessary for iterators to work properly with non-local filesystems like ftp
+				if ($innerIterator->isRewindable()) {
+					$innerIterator->next();
+					$innerIterator->rewind();
+				}
+			} elseif ($innerIterator instanceof \FilesystemIterator) {
+				$innerIterator->next();
+				$innerIterator->rewind();
+			}
 
-            $iterator = $innerIterator;
-        }
+			$iterator = $innerIterator;
+		}
 
-        parent::rewind();
-    }
+		parent::rewind();
+	}
 }

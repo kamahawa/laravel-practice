@@ -5,5 +5,5 @@
  */
 class ClosureUnserializationException extends \RuntimeException implements SuperClosureException
 {
-    //
+	//
 }

@@ -17,24 +17,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LazyLoadingFragmentHandlerTest extends \PHPUnit_Framework_TestCase
 {
-    public function test()
-    {
-        $renderer = $this->getMock('Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface');
-        $renderer->expects($this->once())->method('getName')->will($this->returnValue('foo'));
-        $renderer->expects($this->any())->method('render')->will($this->returnValue(new Response()));
+	public function test()
+	{
+		$renderer = $this->getMock('Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface');
+		$renderer->expects($this->once())->method('getName')->will($this->returnValue('foo'));
+		$renderer->expects($this->any())->method('render')->will($this->returnValue(new Response()));
 
-        $requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
-        $requestStack->expects($this->any())->method('getCurrentRequest')->will($this->returnValue(Request::create('/')));
+		$requestStack = $this->getMock('Symfony\Component\HttpFoundation\RequestStack');
+		$requestStack->expects($this->any())->method('getCurrentRequest')->will($this->returnValue(Request::create('/')));
 
-        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $container->expects($this->once())->method('get')->will($this->returnValue($renderer));
+		$container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+		$container->expects($this->once())->method('get')->will($this->returnValue($renderer));
 
-        $handler = new LazyLoadingFragmentHandler($container, $requestStack, false);
-        $handler->addRendererService('foo', 'foo');
+		$handler = new LazyLoadingFragmentHandler($container, $requestStack, false);
+		$handler->addRendererService('foo', 'foo');
 
-        $handler->render('/foo', 'foo');
+		$handler->render('/foo', 'foo');
 
-        // second call should not lazy-load anymore (see once() above on the get() method)
-        $handler->render('/foo', 'foo');
-    }
+		// second call should not lazy-load anymore (see once() above on the get() method)
+		$handler->render('/foo', 'foo');
+	}
 }

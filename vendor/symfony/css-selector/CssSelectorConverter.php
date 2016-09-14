@@ -26,40 +26,39 @@ use Symfony\Component\CssSelector\XPath\Translator;
  */
 class CssSelectorConverter
 {
-    private $translator;
+	private $translator;
 
-    /**
-     * @param bool $html Whether HTML support should be enabled. Disable it for XML documents
-     */
-    public function __construct($html = true)
-    {
-        $this->translator = new Translator();
+	/**
+	 * @param bool $html Whether HTML support should be enabled. Disable it for XML documents
+	 */
+	public function __construct($html = true)
+	{
+		$this->translator = new Translator();
 
-        if ($html) {
-            $this->translator->registerExtension(new HtmlExtension($this->translator));
-        }
+		if ($html) {
+			$this->translator->registerExtension(new HtmlExtension($this->translator));
+		}
 
-        $this->translator
-            ->registerParserShortcut(new EmptyStringParser())
-            ->registerParserShortcut(new ElementParser())
-            ->registerParserShortcut(new ClassParser())
-            ->registerParserShortcut(new HashParser())
-        ;
-    }
+		$this->translator
+			->registerParserShortcut(new EmptyStringParser())
+			->registerParserShortcut(new ElementParser())
+			->registerParserShortcut(new ClassParser())
+			->registerParserShortcut(new HashParser());
+	}
 
-    /**
-     * Translates a CSS expression to its XPath equivalent.
-     *
-     * Optionally, a prefix can be added to the resulting XPath
-     * expression with the $prefix parameter.
-     *
-     * @param string $cssExpr The CSS expression
-     * @param string $prefix  An optional prefix for the XPath expression
-     *
-     * @return string
-     */
-    public function toXPath($cssExpr, $prefix = 'descendant-or-self::')
-    {
-        return $this->translator->cssToXPath($cssExpr, $prefix);
-    }
+	/**
+	 * Translates a CSS expression to its XPath equivalent.
+	 *
+	 * Optionally, a prefix can be added to the resulting XPath
+	 * expression with the $prefix parameter.
+	 *
+	 * @param string $cssExpr The CSS expression
+	 * @param string $prefix An optional prefix for the XPath expression
+	 *
+	 * @return string
+	 */
+	public function toXPath($cssExpr, $prefix = 'descendant-or-self::')
+	{
+		return $this->translator->cssToXPath($cssExpr, $prefix);
+	}
 }

@@ -3,5 +3,5 @@ namespace foo;
 
 function func()
 {
-    return true;
+	return true;
 }

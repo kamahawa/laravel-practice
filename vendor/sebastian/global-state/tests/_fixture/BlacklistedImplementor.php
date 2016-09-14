@@ -14,5 +14,5 @@ namespace SebastianBergmann\GlobalState\TestFixture;
  */
 class BlacklistedImplementor implements BlacklistedInterface
 {
-    private static $attribute;
+	private static $attribute;
 }

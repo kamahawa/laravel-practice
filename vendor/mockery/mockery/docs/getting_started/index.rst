@@ -2,10 +2,10 @@ Getting Started
 ===============
 
 .. toctree::
-    :hidden:
+:hidden:
 
-    installation
-    upgrading
-    simple_example
+	    installation
+	    upgrading
+	    simple_example
 
 .. include:: map.rst.inc

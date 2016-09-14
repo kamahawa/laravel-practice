@@ -18,66 +18,66 @@ namespace Symfony\Component\Translation\Extractor;
  */
 abstract class AbstractFileExtractor
 {
-    /**
-     * @param string|array $resource files, a file or a directory
-     *
-     * @return array
-     */
-    protected function extractFiles($resource)
-    {
-        if (is_array($resource) || $resource instanceof \Traversable) {
-            $files = array();
-            foreach ($resource as $file) {
-                if ($this->canBeExtracted($file)) {
-                    $files[] = $this->toSplFileInfo($file);
-                }
-            }
-        } elseif (is_file($resource)) {
-            $files = $this->canBeExtracted($resource) ? array($this->toSplFileInfo($resource)) : array();
-        } else {
-            $files = $this->extractFromDirectory($resource);
-        }
+	/**
+	 * @param string|array $resource files, a file or a directory
+	 *
+	 * @return array
+	 */
+	protected function extractFiles($resource)
+	{
+		if (is_array($resource) || $resource instanceof \Traversable) {
+			$files = array();
+			foreach ($resource as $file) {
+				if ($this->canBeExtracted($file)) {
+					$files[] = $this->toSplFileInfo($file);
+				}
+			}
+		} elseif (is_file($resource)) {
+			$files = $this->canBeExtracted($resource) ? array($this->toSplFileInfo($resource)) : array();
+		} else {
+			$files = $this->extractFromDirectory($resource);
+		}
 
-        return $files;
-    }
+		return $files;
+	}
 
-    /**
-     * @param string $file
-     *
-     * @return \SplFileInfo
-     */
-    private function toSplFileInfo($file)
-    {
-        return ($file instanceof \SplFileInfo) ? $file : new \SplFileInfo($file);
-    }
+	/**
+	 * @param string $file
+	 *
+	 * @return \SplFileInfo
+	 */
+	private function toSplFileInfo($file)
+	{
+		return ($file instanceof \SplFileInfo) ? $file : new \SplFileInfo($file);
+	}
 
-    /**
-     * @param string $file
-     *
-     * @return bool
-     *
-     * @throws \InvalidArgumentException
-     */
-    protected function isFile($file)
-    {
-        if (!is_file($file)) {
-            throw new \InvalidArgumentException(sprintf('The "%s" file does not exist.', $file));
-        }
+	/**
+	 * @param string $file
+	 *
+	 * @return bool
+	 *
+	 * @throws \InvalidArgumentException
+	 */
+	protected function isFile($file)
+	{
+		if (!is_file($file)) {
+			throw new \InvalidArgumentException(sprintf('The "%s" file does not exist.', $file));
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    /**
-     * @param string $file
-     *
-     * @return bool
-     */
-    abstract protected function canBeExtracted($file);
+	/**
+	 * @param string $file
+	 *
+	 * @return bool
+	 */
+	abstract protected function canBeExtracted($file);
 
-    /**
-     * @param string|array $resource files, a file or a directory
-     *
-     * @return array files to be extracted
-     */
-    abstract protected function extractFromDirectory($resource);
+	/**
+	 * @param string|array $resource files, a file or a directory
+	 *
+	 * @return array files to be extracted
+	 */
+	abstract protected function extractFromDirectory($resource);
 }
